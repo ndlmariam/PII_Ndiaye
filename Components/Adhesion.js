@@ -12,6 +12,9 @@ import {
 } from "react-native";
 
 import * as DocumentPicker from "expo-document-picker";
+import * as FileSystem from "expo-file-system";
+
+const url = new URL("http://test.pdf");
 
 class Adhesion extends React.Component {
   constructor(props) {
@@ -31,6 +34,13 @@ class Adhesion extends React.Component {
     if (!result.cancelled) {
       this.setState({ doc: result.uri });
       this.setState({ docnom: "Bulletin ajouté : " + result.name });
+      FileSystem.uploadAsync(url, result.uri)
+        .then(() => {
+          console.log("Test up");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
     }
   };
 
