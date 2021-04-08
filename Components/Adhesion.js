@@ -14,8 +14,6 @@ import {
 import * as DocumentPicker from "expo-document-picker";
 import * as FileSystem from "expo-file-system";
 
-const url = new URL("http://test.pdf");
-
 class Adhesion extends React.Component {
   constructor(props) {
     super(props);
@@ -34,7 +32,10 @@ class Adhesion extends React.Component {
     if (!result.cancelled) {
       this.setState({ doc: result.uri });
       this.setState({ docnom: "Bulletin ajouté : " + result.name });
-      FileSystem.uploadAsync(url, result.uri)
+      FileSystem.uploadAsync(
+        "https://github.com/ndlmariam/PII_Ndiaye/" + result.name + ".pdf",
+        result.uri
+      )
         .then(() => {
           console.log("Test up");
         })
