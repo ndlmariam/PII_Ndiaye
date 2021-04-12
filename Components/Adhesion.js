@@ -8,15 +8,14 @@ import {
   Share,
   TextInput,
   TouchableOpacity,
-  Image,
+  Alert,
 } from "react-native";
 
 import * as DocumentPicker from "expo-document-picker";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 import * as firebase from "firebase";
-
-// Get a reference to the storage service, which is used to create references in your storage bucket
+import * as Sharing from "expo-sharing";
 
 class Adhesion extends React.Component {
   constructor(props) {
@@ -39,7 +38,6 @@ class Adhesion extends React.Component {
     if (!result.cancelled) {
       this.setState({ doc: result.uri });
       this.setState({ docnom: "Bulletin ajouté : " + result.name });
-      this.uploadBulletin(result.uri, this.state.nom, this.state.prenom);
     }
   };
   uploadBulletin = async (uri, nom, prenom) => {
@@ -67,29 +65,51 @@ class Adhesion extends React.Component {
     if (!result.cancelled) {
       this.setState({ rib: result.uri });
       this.setState({ ribnom: "RIB ajouté : " + result.name });
-      this.uploadRIB(result.uri, this.state.nom, this.state.prenom);
     }
   };
   onShare = async () => {
-    try {
-      const result = await Share.share({
-        message:
-          "Lien vers bulletin d'adhésion : https://drive.google.com/file/d/1C_at3bC2Tr8OAFkoJtVLBqgNchOepDOr/view?usp=sharing",
-        url:
-          "https://drive.google.com/file/d/1C_at3bC2Tr8OAFkoJtVLBqgNchOepDOr/view?usp=sharing",
-        title: "Bulletin d'adhésion",
-      });
-      if (result.action === Share.sharedAction) {
-        if (result.activityType) {
-          // shared with activity type of result.activityType
-        } else {
-          // shared
-        }
-      } else if (result.action === Share.dismissedAction) {
-        // dismissed
-      }
-    } catch (error) {
-      alert(error.message);
+    const { uri: localUri } = await FileSystem.downloadAsync(
+      "https://firebasestorage.googleapis.com/v0/b/cfdttest-cc48d.appspot.com/o/bulletin.pdf?alt=media&token=6639eff7-c419-4a32-be46-b2de01e3371c",
+      FileSystem.documentDirectory + "bulletin.pdf"
+    ).catch((error) => {
+      console.error(error);
+    });
+    await Sharing.shareAsync(localUri).catch((err) =>
+      console.log("Sharing::error", err)
+    );
+  };
+  adherer = () => {
+    if (
+      this.state.doc != null &&
+      this.state.rib != null &&
+      this.state.nom != "" &&
+      this.state.prenom != "" &&
+      this.state.email != ""
+    ) {
+      this.uploadBulletin(this.state.docu, this.state.nom, this.state.prenom);
+      this.uploadRIB(this.state.rib, this.state.nom, this.state.prenom);
+      Alert.alert("Adhésion", "Votre adhésion a bien été envoyée", [
+        { text: "Ok" },
+      ]),
+        this.props.navigation.navigate("Accueil");
+    } else if (this.state.doc != null && this.state.rib != null) {
+      Alert.alert("Erreur", "Veuillez remplir tous les champs", [
+        { text: "Ok" },
+      ]);
+    } else if (
+      this.state.nom != "" &&
+      this.state.prenom != "" &&
+      this.state.email != ""
+    ) {
+      Alert.alert("Erreur", "Veuillez importer tous les documents", [
+        { text: "Ok" },
+      ]);
+    } else {
+      Alert.alert(
+        "Erreur",
+        "Veuillez remplir les champs et importer tous les documents",
+        [{ text: "Ok" }]
+      );
     }
   };
   render() {
@@ -145,7 +165,10 @@ class Adhesion extends React.Component {
             <Button title={this.state.ribnom} onPress={this._pickRIB} />
           </View>
         </View>
-        <TouchableOpacity style={{ paddingHorizontal: 135 }}>
+        <TouchableOpacity
+          style={{ paddingHorizontal: 135 }}
+          onPress={this.adherer}
+        >
           <Text style={styles.button}>Adhérer</Text>
         </TouchableOpacity>
       </ScrollView>
@@ -180,6 +203,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+  },
+  container2: {
+    flex: 1,
+    //paddingTop: Constants.statusBarHeight,
+    backgroundColor: "#ecf0f1",
   },
 });
 

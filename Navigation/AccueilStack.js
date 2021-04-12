@@ -9,6 +9,7 @@ import ActualitesMembres from "../Components/ActualitesMembres";
 import MesDroits from "../Components/MesDroits";
 import ActuDetail from "../Components/ActuDetail";
 import AjoutActualite from "../Components/AjoutActualite";
+import PdfReader from "../Components/PdfReader";
 
 import firebase from "firebase";
 import firebaseConfig from "../firebase";
@@ -121,6 +122,7 @@ class AccueilStack extends React.Component {
         <Stack.Screen name="Mes droits" component={MesDroits} />
         <Stack.Screen name="Accords" component={Accords} />
         <Stack.Screen name="Actualités" component={this.state.ActuStackFin} />
+        <Stack.Screen name="PdfReader" component={PdfReader} />
         <Stack.Screen
           name="Détail"
           component={ActuDetail}
