@@ -12,7 +12,11 @@ import {
 } from "react-native";
 
 import * as DocumentPicker from "expo-document-picker";
+import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
+import * as firebase from "firebase";
+
+// Get a reference to the storage service, which is used to create references in your storage bucket
 
 class Adhesion extends React.Component {
   constructor(props) {
@@ -23,6 +27,9 @@ class Adhesion extends React.Component {
       doc: null,
       ribnom: "Importer RIB",
       rib: null,
+      email: "",
+      nom: "",
+      prenom: "",
     };
   }
   _pickDocument = async () => {
@@ -32,19 +39,27 @@ class Adhesion extends React.Component {
     if (!result.cancelled) {
       this.setState({ doc: result.uri });
       this.setState({ docnom: "Bulletin ajouté : " + result.name });
-      FileSystem.uploadAsync(
-        "https://github.com/ndlmariam/PII_Ndiaye/" + result.name + ".pdf",
-        result.uri
-      )
-        .then(() => {
-          console.log("Test up");
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+      this.uploadBulletin(result.uri, this.state.nom, this.state.prenom);
     }
   };
-
+  uploadBulletin = async (uri, nom, prenom) => {
+    const response = await fetch(uri);
+    const blob = await response.blob();
+    var ref = firebase
+      .storage()
+      .ref()
+      .child("Papiers/" + nom + prenom + "/Bulletin");
+    return ref.put(blob);
+  };
+  uploadRIB = async (uri, nom, prenom) => {
+    const response = await fetch(uri);
+    const blob = await response.blob();
+    var ref = firebase
+      .storage()
+      .ref()
+      .child("Papiers/" + nom + prenom + "/RIB");
+    return ref.put(blob);
+  };
   _pickRIB = async () => {
     let result = await DocumentPicker.getDocumentAsync({
       copyToCacheDirectory: true,
@@ -52,6 +67,7 @@ class Adhesion extends React.Component {
     if (!result.cancelled) {
       this.setState({ rib: result.uri });
       this.setState({ ribnom: "RIB ajouté : " + result.name });
+      this.uploadRIB(result.uri, this.state.nom, this.state.prenom);
     }
   };
   onShare = async () => {
@@ -99,12 +115,21 @@ class Adhesion extends React.Component {
             Mon adhésion
           </Text>
           <Text style={styles.text}>Entrez votre nom</Text>
-          <TextInput placeholder="Nom" style={styles.textinput} />
+          <TextInput
+            placeholder="Nom"
+            style={styles.textinput}
+            onChangeText={(nom) => this.setState({ nom })}
+          />
           <Text style={styles.text}>Entrez votre prénom </Text>
-          <TextInput placeholder="Prénom" style={styles.textinput} />
+          <TextInput
+            placeholder="Prénom"
+            style={styles.textinput}
+            onChangeText={(prenom) => this.setState({ prenom })}
+          />
           <Text style={styles.text}>Entrez votre adresse mail </Text>
           <TextInput
             placeholder="monadresse@email.com"
+            onChangeText={(email) => this.setState({ email })}
             style={styles.textinput}
           />
 
