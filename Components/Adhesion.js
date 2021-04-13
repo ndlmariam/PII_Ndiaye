@@ -12,7 +12,6 @@ import {
 } from "react-native";
 
 import * as DocumentPicker from "expo-document-picker";
-import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 import * as firebase from "firebase";
 import * as Sharing from "expo-sharing";
@@ -31,6 +30,14 @@ class Adhesion extends React.Component {
       prenom: "",
     };
   }
+  send = (nom, prenom, email) => {
+    firebase.database().ref("adherents").push({ nom, prenom, email });
+    this.setState({
+      nom: "",
+      prenom: "",
+      email: "",
+    });
+  };
   _pickDocument = async () => {
     let result = await DocumentPicker.getDocumentAsync({
       copyToCacheDirectory: true,
@@ -49,15 +56,6 @@ class Adhesion extends React.Component {
       .child("Papiers/" + nom + prenom + "/Bulletin");
     return ref.put(blob);
   };
-  uploadRIB = async (uri, nom, prenom) => {
-    const response = await fetch(uri);
-    const blob = await response.blob();
-    var ref = firebase
-      .storage()
-      .ref()
-      .child("Papiers/" + nom + prenom + "/RIB");
-    return ref.put(blob);
-  };
   _pickRIB = async () => {
     let result = await DocumentPicker.getDocumentAsync({
       copyToCacheDirectory: true,
@@ -67,6 +65,16 @@ class Adhesion extends React.Component {
       this.setState({ ribnom: "RIB ajouté : " + result.name });
     }
   };
+  uploadRIB = async (uri, nom, prenom) => {
+    const response = await fetch(uri);
+    const blob = await response.blob();
+    var ref = firebase
+      .storage()
+      .ref()
+      .child("Papiers/" + nom + prenom + "/RIB");
+    return ref.put(blob);
+  };
+
   onShare = async () => {
     const { uri: localUri } = await FileSystem.downloadAsync(
       "https://firebasestorage.googleapis.com/v0/b/cfdttest-cc48d.appspot.com/o/bulletin.pdf?alt=media&token=6639eff7-c419-4a32-be46-b2de01e3371c",
@@ -86,11 +94,12 @@ class Adhesion extends React.Component {
       this.state.prenom != "" &&
       this.state.email != ""
     ) {
-      this.uploadBulletin(this.state.docu, this.state.nom, this.state.prenom);
+      this.uploadBulletin(this.state.doc, this.state.nom, this.state.prenom);
       this.uploadRIB(this.state.rib, this.state.nom, this.state.prenom);
       Alert.alert("Adhésion", "Votre adhésion a bien été envoyée", [
         { text: "Ok" },
       ]),
+        this.send(this.state.nom, this.state.prenom, this.state.email),
         this.props.navigation.navigate("Accueil");
     } else if (this.state.doc != null && this.state.rib != null) {
       Alert.alert("Erreur", "Veuillez remplir tous les champs", [
@@ -113,7 +122,6 @@ class Adhesion extends React.Component {
     }
   };
   render() {
-    let { docnom } = this.state;
     return (
       <ScrollView style={{ flex: 1, backgroundColor: "white" }}>
         <Text style={{ fontSize: 25, padding: 15, color: "#E7591C" }}>

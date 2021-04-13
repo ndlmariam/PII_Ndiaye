@@ -19,23 +19,24 @@ class AnjouMaine extends React.Component {
   }
 
   onShare = async (lien, nom) => {
-    try {
-      const result = await Share.share({
-        message: "Lien pdf " + nom + " :" + lien,
-        url: lien,
-      });
-      if (result.action === Share.sharedAction) {
-        if (result.activityType) {
-          // shared with activity type of result.activityType
-        } else {
-          // shared
-        }
-      } else if (result.action === Share.dismissedAction) {
-        // dismissed
-      }
-    } catch (error) {
-      alert(error.message);
-    }
+    // try {
+    //   const result = await Share.share({
+    //     message: "Lien pdf " + nom + " :" + lien,
+    //     url: lien,
+    //   });
+    //   if (result.action === Share.sharedAction) {
+    //     if (result.activityType) {
+    //       // shared with activity type of result.activityType
+    //     } else {
+    //       // shared
+    //     }
+    //   } else if (result.action === Share.dismissedAction) {
+    //     // dismissed
+    //   }
+    // } catch (error) {
+    //   alert(error.message);
+    // }
+    this.props.navigation.navigate("PdfReader", { uri: lien });
   };
 
   componentDidMount() {

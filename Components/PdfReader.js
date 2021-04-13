@@ -9,9 +9,12 @@ const PdfReader = ({ url: uri }) => (
 );
 
 export default class PdfReaderScreen extends React.Component {
+  constructor(props) {
+    super(props);
+  }
   onShare = async () => {
     const { uri: localUri } = await FileSystem.downloadAsync(
-      "https://firebasestorage.googleapis.com/v0/b/cfdttest-cc48d.appspot.com/o/bulletin.pdf?alt=media&token=6639eff7-c419-4a32-be46-b2de01e3371c",
+      this.state.uri,
       FileSystem.documentDirectory + "bulletin.pdf"
     ).catch((error) => {
       console.error(error);
@@ -23,7 +26,7 @@ export default class PdfReaderScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <PdfReader url="https://firebasestorage.googleapis.com/v0/b/cfdttest-cc48d.appspot.com/o/bulletin.pdf?alt=media&token=6639eff7-c419-4a32-be46-b2de01e3371c" />
+        <PdfReader url={this.props.route.params.uri} />
       </View>
     );
   }
