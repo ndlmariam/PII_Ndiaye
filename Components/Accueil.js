@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import firebase from "firebase";
 import firebaseConfig from "../firebase";
+
 class Accueil extends React.Component {
   render() {
     if (!firebase.apps.length) {

@@ -62,6 +62,7 @@ class Ajoutactualite extends React.Component {
       description: "",
       date: "",
       uri: null,
+      urinom: "Ajouter une image",
       pdf: null,
       pdfnom: "Sélectionner un fichier",
     };
@@ -107,13 +108,10 @@ class Ajoutactualite extends React.Component {
       base64: true,
       aspect: [4, 3],
     });
-    // FileSystem.moveAsync({
-    //   from: result.uri,
-    //   to: FileSytem.documentDirectory + "images/" + result.name + ".png",
-    // });
 
     if (!result.cancelled) {
       this.setState({ uri: "data:image/jpeg;base64," + result.base64 });
+      this.setState({ urinom: "Modifier image" });
     }
   };
 
@@ -127,36 +125,47 @@ class Ajoutactualite extends React.Component {
     }
   };
 
+  uploadDocument = async (uri, titre, date) => {
+    const response = await fetch(uri);
+    const blob = await response.blob();
+    var ref = firebase
+      .storage()
+      .ref()
+      .child("Actualites/" + titre + "_" + date);
+    return ref.put(blob);
+  };
   render() {
-    let { uri, pdf, pdfnom } = this.state;
+    let { uri, pdf } = this.state;
     return (
-      <ScrollView style={{ marginVertical: 30, paddingLeft: 5 }}>
+      <ScrollView
+        style={{
+          paddingVertical: 30,
+          paddingLeft: 5,
+          backgroundColor: "white",
+        }}
+      >
+        <Text style={{ textAlign: "center", fontSize: 20, marginBottom: 23 }}>
+          Ajoutez une nouvelle actualité
+        </Text>
         <TextInput
           style={{ padding: 20 }}
           placeholder="Titre"
           onChangeText={(titre) => this.setState({ titre })}
           style={styles.textinputcontainer}
         />
-        <View style={{ marginTop: 20, alignItems: "center" }}>
-          <Button title="Ajouter une image" onPress={this._pickImage} />
-          {uri && (
-            <Image
-              source={{ uri: uri }}
-              style={{ width: Dimensions.get("window").width, height: 200 }}
-            />
-          )}
-          <Button title={this.state.pdfnom} onPress={this._pickDocument} />
-          {/* {pdf && (
-            <Text>Document ajouté : {pdfnom}</Text>
-          )} */}
-        </View>
         <TextInput
           multiline
           placeholder="Description"
           onChangeText={(description) => this.setState({ description })}
           style={styles.textinputCommentaire}
         />
-
+        <View style={{ marginTop: 20, alignItems: "center" }}>
+          <Button title={this.state.urinom} onPress={this._pickImage} />
+          {uri && (
+            <Image source={{ uri: uri }} style={{ width: 200, height: 200 }} />
+          )}
+          <Button title={this.state.pdfnom} onPress={this._pickDocument} />
+        </View>
         <View style={{ alignItems: "center", marginVertical: 30 }}>
           <TouchableOpacity
             style={styles.btn}
@@ -168,11 +177,12 @@ class Ajoutactualite extends React.Component {
                 this.state.uri,
                 this.state.pdf
               ),
-                Alert.alert(
-                  "Ajouté",
-                  "Une nouvelle actualité vient d'être créée.",
-                  [{ text: "Ok" }]
-                ),
+                this.uploadDocument(pdf, this.state.titre, this.state.date);
+              Alert.alert(
+                "Ajouté",
+                "Une nouvelle actualité vient d'être créée.",
+                [{ text: "Ok" }]
+              ),
                 this.props.navigation.navigate("Actualités");
             }}
           >
@@ -202,7 +212,7 @@ const styles = StyleSheet.create({
   },
 
   textinputcontainer: {
-    backgroundColor: "white",
+    backgroundColor: "#F5F6F6",
     borderRadius: 30,
     height: 50,
     width: 400,
@@ -214,7 +224,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   textinputCommentaire: {
-    backgroundColor: "white",
+    backgroundColor: "#F5F6F6",
     fontSize: 20,
     borderRadius: 10,
     height: 400,

@@ -173,11 +173,8 @@ class Adhesion extends React.Component {
             <Button title={this.state.ribnom} onPress={this._pickRIB} />
           </View>
         </View>
-        <TouchableOpacity
-          style={{ paddingHorizontal: 135 }}
-          onPress={this.adherer}
-        >
-          <Text style={styles.button}>Adhérer</Text>
+        <TouchableOpacity style={styles.btn} onPress={this.adherer}>
+          <Text style={{ fontSize: 20, color: "white" }}>Adhérer</Text>
         </TouchableOpacity>
       </ScrollView>
     );
@@ -216,6 +213,16 @@ const styles = StyleSheet.create({
     flex: 1,
     //paddingTop: Constants.statusBarHeight,
     backgroundColor: "#ecf0f1",
+  },
+  btn: {
+    backgroundColor: "#6A85BE",
+    borderRadius: 30,
+    height: 50,
+    width: 180,
+    marginTop: 25,
+    justifyContent: "center",
+    alignItems: "center",
+    alignSelf: "center",
   },
 });
 

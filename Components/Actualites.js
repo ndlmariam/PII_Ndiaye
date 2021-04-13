@@ -20,6 +20,7 @@ class Actualites extends React.Component {
       description: "",
       date: "",
       uri: "",
+      pdf: "",
     };
   }
   componentDidMount() {
@@ -35,17 +36,19 @@ class Actualites extends React.Component {
             description: child.val().description,
             date: child.val().date,
             uri: child.val().uri,
+            pdf: child.val().pdf,
           });
         });
         this.setState({ actualites: li });
       });
   }
-  _displayDetail = (titre, description, date, uri) => {
+  _displayDetail = (titre, description, date, uri, pdf) => {
     this.props.navigation.navigate("Détail", {
       titre: titre,
       description: description,
       date: date,
       uri: uri,
+      pdf: pdf,
     });
   };
 
@@ -75,7 +78,8 @@ class Actualites extends React.Component {
                       item.titre,
                       item.description,
                       item.date,
-                      item.uri
+                      item.uri,
+                      item.pdf
                     );
                   }}
                   style={{

@@ -9,7 +9,12 @@ import {
   View,
   TouchableOpacity,
   Platform,
+  Alert,
 } from "react-native";
+
+import firebase from "firebase";
+import * as FileSystem from "expo-file-system";
+import * as Sharing from "expo-sharing";
 
 const image = Platform.select({
   ios: () => require("../Images/shareios.png"),
@@ -21,31 +26,73 @@ class ActuDetail extends React.Component {
     super(props);
     this.state = {
       actualite: undefined,
+      url: "",
     };
   }
 
   onShare = async () => {
-    try {
-      const result = await Share.share({
-        message:
-          this.props.route.params.titre +
-          "\nDescription : \n" +
-          this.props.route.params.description +
-          "\nLien article : ",
-      });
-      if (result.action === Share.sharedAction) {
-        if (result.activityType) {
-          // shared with activity type of result.activityType
-        } else {
-          // shared
+    if (this.state.url == "") {
+      try {
+        const result = await Share.share({
+          message:
+            this.props.route.params.titre +
+            "\nDescription : \n" +
+            this.props.route.params.description,
+        });
+        if (result.action === Share.sharedAction) {
+          if (result.activityType) {
+            // shared with activity type of result.activityType
+          } else {
+            // shared
+          }
+        } else if (result.action === Share.dismissedAction) {
+          // dismissed
         }
-      } else if (result.action === Share.dismissedAction) {
-        // dismissed
+      } catch (error) {
+        //alert(error.message);
       }
-    } catch (error) {
-      alert(error.message);
+    } else {
+      const titre = this.props.route.params.titre.replace(/ /g, "");
+      const { uri: localUri } = await FileSystem.downloadAsync(
+        this.state.url,
+        FileSystem.documentDirectory + titre + ".pdf"
+      ).catch(() => {
+        Alert.alert("Erreur", "Problème avec le document.", [{ text: "Ok" }]);
+      });
+      await Sharing.shareAsync(localUri).catch(() =>
+        Alert.alert("Erreur", "Problème avec le document.", [{ text: "Ok" }])
+      );
     }
   };
+  afficheArticle = () => {
+    if (this.state.url == "") {
+      Alert.alert(
+        "Lien inactif",
+        "Cet article n'est pas présent sous forme de document.",
+        [{ text: "Ok" }]
+      );
+    } else {
+      this.props.navigation.navigate("PdfReader", {
+        uri: this.state.url,
+      });
+    }
+  };
+  componentDidMount() {
+    const test = firebase
+      .storage()
+      .ref(
+        "Actualites/" +
+          this.props.route.params.titre +
+          "_" +
+          this.props.route.params.date
+      )
+      .getDownloadURL()
+      .then((url) => {
+        this.setState({ url: url });
+      })
+      .catch(() => {});
+  }
+
   render() {
     return (
       <ScrollView style={{ backgroundColor: "white" }}>
@@ -76,6 +123,10 @@ class ActuDetail extends React.Component {
             />
           </TouchableOpacity>
         </View>
+        <TouchableOpacity onPress={this.afficheArticle}>
+          <Text style={styles.lien}>Article complet</Text>
+        </TouchableOpacity>
+
         <Text style={styles.description}>
           {this.props.route.params.description}
         </Text>
@@ -95,7 +146,7 @@ const styles = StyleSheet.create({
     margin: 10,
     fontSize: 18,
     fontStyle: "italic",
-    color: "#6A85BE",
+
     textAlign: "right",
   },
   description: {
@@ -107,6 +158,13 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     height: 250,
     width: Dimensions.get("window").width,
+  },
+  lien: {
+    textAlign: "center",
+    fontSize: 18,
+    marginTop: 10,
+    textDecorationLine: "underline",
+    color: "#6A85BE",
   },
 });
 
