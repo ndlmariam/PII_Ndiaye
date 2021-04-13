@@ -17,7 +17,7 @@ const ShareExample = () => {
         // dismissed
       }
     } catch (error) {
-      alert(error.message);
+      //alert(error.message);
     }
   };
   return (

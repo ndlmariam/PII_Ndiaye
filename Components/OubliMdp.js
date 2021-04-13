@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import firebase from "firebase";
 import firebaseConfig from "../firebase";
+var mail = "";
 
 class OubliMDP extends React.Component {
   constructor(props) {
@@ -17,23 +18,32 @@ class OubliMDP extends React.Component {
       email: "",
     };
   }
-  emailVerif() {
-    // var emailAddress = this.state.email;
+  emailVerif = () => {
+    //var emailAddress = this.state.email;
     firebase
       .auth()
       .sendPasswordResetEmail(this.state.email)
       .then(function () {
         // Password reset email sent.
+        Alert.alert(
+          "Mot de passe changé ",
+          "Vous venez de recevoir un mail pour réinitialiser votre mot de passe ",
+          [{ text: "Ok" }]
+        );
       })
       .catch((error) =>
         Alert.alert("Erreur ", error.message, [{ text: "Ok" }])
       );
+    this.props.navigation.navigate("Profil");
+  };
+  componentDidMount() {
+    this.setState({ email: mail });
   }
   render() {
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
     }
-    var mail = "";
+
     if (this.props.route.params != undefined) {
       mail = this.props.route.params.email;
     }
@@ -48,20 +58,18 @@ class OubliMDP extends React.Component {
         }}
       >
         <Text style={styles.text}>
-          Veuillez entrer l'adresse mail associée à votre compte afin de
-          réinitialiser votre mot de passe.
+          Veuillez vérifier ou modifier l'adresse mail associée à votre compte
+          afin de réinitialiser votre mot de passe.
         </Text>
         <View style={styles.textinputcontainer}>
           <TextInput
             autoCompleteType="email"
             autoCapitalize="none"
-            placeholder="Email"
             style={styles.textinputcontent}
             onChangeText={(email) => this.setState({ email })}
+            placeholder="Email"
             value={this.state.email}
-          >
-            {mail}
-          </TextInput>
+          ></TextInput>
         </View>
         <TouchableOpacity style={styles.btn} onPress={this.emailVerif}>
           <Text style={{ fontSize: 20, color: "white" }}>Changer</Text>
@@ -82,7 +90,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   textinputcontainer: {
-    backgroundColor: "white",
+    backgroundColor: "#F5F6F6",
     borderRadius: 30,
     height: 50,
     width: 370,

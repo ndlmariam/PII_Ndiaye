@@ -13,7 +13,6 @@ class Accueil extends React.Component {
   render() {
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
-      console.log(firebaseConfig);
     }
     const { navigation } = this.props;
 

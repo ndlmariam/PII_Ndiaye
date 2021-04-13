@@ -29,10 +29,16 @@ class ChangeAdresse extends React.Component {
         userCredential.user.updateEmail(email);
         this.props.navigation.navigate("Profil");
         userCredential.reload();
+        Alert.alert(
+          "Email modifié ",
+          "Votre adresse mail a bien été mise à jour.",
+          [{ text: "Ok" }]
+        );
       })
       .catch((error) =>
         Alert.alert("Erreur ", error.message, [{ text: "Ok" }])
       );
+    this.props.navigation.navigate("Profil");
   };
   render() {
     if (!firebase.apps.length) {
@@ -90,7 +96,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   textinputcontainer: {
-    backgroundColor: "white",
+    backgroundColor: "#F5F6F6",
     borderRadius: 30,
     height: 50,
     width: 370,

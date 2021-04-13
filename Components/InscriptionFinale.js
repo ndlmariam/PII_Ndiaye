@@ -40,7 +40,6 @@ class Inscription extends React.Component {
       .catch((error) => {
         var errorMessage = error.message;
         Alert.alert("Erreur ", errorMessage, [{ text: "Ok" }]);
-        console.log(errorMessage);
       });
   };
   send = (id, email, name, mdp, connecte) => {

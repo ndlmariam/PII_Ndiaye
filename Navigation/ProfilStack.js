@@ -7,6 +7,7 @@ import OubliMDP from "../Components/OubliMdp";
 import ChangeAdresse from "../Components/ChangeAdresse";
 import Instances from "../Components/Instances";
 import InscriptionFinale from "../Components/InscriptionFinale";
+import AccueilStack from "../Navigation/AccueilStack";
 import React from "react";
 import firebase from "firebase";
 import firebaseConfig from "../firebase";

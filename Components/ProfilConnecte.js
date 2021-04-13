@@ -34,7 +34,7 @@ class ProfilConnecte extends React.Component {
     return (
       <View style={styles.container}>
         <Text style={styles.profil}>- Informations compte -</Text>
-        <Text style={styles.text}>Nom : {name}</Text>
+        <Text style={styles.text}>Adhérent.e : {name}</Text>
         <Text style={styles.text}>Adresse mail : {email}</Text>
         <Button
           title="Changer adresse mail"

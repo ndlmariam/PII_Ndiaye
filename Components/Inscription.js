@@ -49,7 +49,6 @@ class Inscription extends React.Component {
         );
       }
     } else {
-      console.log("key " + refkey);
       Alert.alert(
         "Erreur ",
         "Ce numéro d'adhésion ne permet pas de créer un compte.",
@@ -60,7 +59,6 @@ class Inscription extends React.Component {
   render() {
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
-      console.log(firebaseConfig);
     }
     return (
       <View style={{ flex: 1, alignItems: "center", marginTop: 100 }}>
@@ -73,7 +71,7 @@ class Inscription extends React.Component {
         </Text>
         <View style={styles.textinputcontainer}>
           <TextInput
-            maxLength="10"
+            maxLength={10}
             keyboardType="numeric"
             autoCapitalize="none"
             placeholder="n° d'adhésion CFDT"
