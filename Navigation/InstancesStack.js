@@ -38,6 +38,7 @@ class InstancesStack extends React.Component {
           options={{
             headerLeft: () => LogoMenu({ navigation }),
             headerTitle: () => LogoTitle({ navigation }),
+            headerBackTitle: "Retour",
           }}
         />
       </Stack.Navigator>

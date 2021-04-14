@@ -96,13 +96,15 @@ class ActualitesStack extends React.Component {
           options={{
             headerLeft: () => LogoMenu({ navigation }),
             headerTitle: () => LogoTitle({ navigation }),
+            headerBackTitle: "Retour",
           }}
         />
         <Stack.Screen
           name="Détail"
           component={ActuDetail}
           options={{
-            headerTitle: () => LogoTitle({ navigation }),
+            headerTitle: null,
+            headerBackTitle: "Retour",
             //headerRight: () => LogoShare(),
           }}
         />
@@ -111,6 +113,7 @@ class ActualitesStack extends React.Component {
           component={AjoutActualite}
           options={{
             headerTitle: () => LogoTitle({ navigation }),
+            headerBackTitle: "Retour",
           }}
         />
       </Stack.Navigator>

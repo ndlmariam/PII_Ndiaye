@@ -70,6 +70,7 @@ class ProfilStack extends React.Component {
           options={{
             headerLeft: () => LogoMenu({ navigation }),
             headerTitle: () => LogoTitle({ navigation }),
+            headerBackTitle: "Retour",
           }}
         />
         <Stack.Screen
@@ -77,6 +78,7 @@ class ProfilStack extends React.Component {
           component={Inscription}
           options={{
             headerTitle: () => LogoTitle({ navigation }),
+            headerBackTitle: "Retour",
           }}
         />
         <Stack.Screen
@@ -84,6 +86,7 @@ class ProfilStack extends React.Component {
           component={InscriptionFinale}
           options={{
             headerTitle: () => LogoTitle({ navigation }),
+            headerBackTitle: "Retour",
           }}
         />
         <Stack.Screen
@@ -91,6 +94,7 @@ class ProfilStack extends React.Component {
           component={OubliMDP}
           options={{
             headerTitle: () => LogoTitle({ navigation }),
+            headerBackTitle: "Retour",
           }}
         />
         <Stack.Screen
@@ -98,6 +102,7 @@ class ProfilStack extends React.Component {
           component={ChangeAdresse}
           options={{
             headerTitle: () => LogoTitle({ navigation }),
+            headerBackTitle: "Retour",
           }}
         />
         <Stack.Screen
@@ -105,6 +110,7 @@ class ProfilStack extends React.Component {
           component={Instances}
           options={{
             headerTitle: () => LogoTitle({ navigation }),
+            headerBackTitle: "Retour",
           }}
         />
       </Stack.Navigator>

@@ -115,33 +115,136 @@ class AccueilStack extends React.Component {
           options={{
             headerLeft: () => LogoMenu({ navigation }),
             headerTitle: () => LogoTitle({ navigation }),
+            headerBackTitle: "Retour",
           }}
         />
-        <Stack.Screen name="Élus" component={Elus} />
-        <Stack.Screen name="Adhésion" component={Adhesion} />
-        <Stack.Screen name="Mes droits" component={MesDroits} />
-        <Stack.Screen name="Accords" component={Accords} />
-        <Stack.Screen name="Actualités" component={this.state.ActuStackFin} />
-        <Stack.Screen name="PdfReader" component={PdfReader} />
+        <Stack.Screen
+          name="Élus"
+          component={Elus}
+          options={{
+            headerTitle: null,
+            headerBackTitle: "Retour",
+          }}
+        />
+        <Stack.Screen
+          name="Adhésion"
+          component={Adhesion}
+          options={{
+            headerTitle: null,
+            headerBackTitle: "Retour",
+          }}
+        />
+        <Stack.Screen
+          name="Mes droits"
+          component={MesDroits}
+          options={{
+            headerTitle: null,
+            headerBackTitle: "Retour",
+          }}
+        />
+        <Stack.Screen
+          name="Accords"
+          component={Accords}
+          options={{
+            headerTitle: null,
+            headerBackTitle: "Retour",
+          }}
+        />
+        <Stack.Screen
+          name="Actualités"
+          component={this.state.ActuStackFin}
+          options={{
+            headerTitle: null,
+            headerBackTitle: "Retour",
+          }}
+        />
+        <Stack.Screen
+          name="PdfReader"
+          component={PdfReader}
+          options={{
+            headerTitle: null,
+            headerBackTitle: "Retour",
+          }}
+        />
         <Stack.Screen
           name="Détail"
           component={ActuDetail}
-          // options={{
-          //   headerRight: () => LogoShare(),
-          // }}
+          options={{
+            headerTitle: null,
+            headerBackTitle: "Retour",
+          }}
         />
-        <Stack.Screen name="Ajout Actualité" component={AjoutActualite} />
-        <Stack.Screen name="Élus CSSCT" component={ElusCSSCT} />
-        <Stack.Screen name="Élus CSE" component={ElusCSE} />
-        <Stack.Screen name="Élus commission CSE" component={ElusCommission} />
-        <Stack.Screen name="Délégués syndicaux" component={Delegues} />
-        <Stack.Screen name="Accords Anjou Maine" component={AnjouMaine} />
-        <Stack.Screen name="Accords nationaux" component={Nationaux} />
+        <Stack.Screen
+          name="Ajout Actualité"
+          component={AjoutActualite}
+          options={{
+            headerTitle: null,
+            headerBackTitle: "Retour",
+          }}
+        />
+        <Stack.Screen
+          name="Élus CSSCT"
+          component={ElusCSSCT}
+          options={{
+            headerTitle: null,
+            headerBackTitle: "Retour",
+          }}
+        />
+        <Stack.Screen
+          name="Élus CSE"
+          component={ElusCSE}
+          options={{
+            headerTitle: null,
+            headerBackTitle: "Retour",
+          }}
+        />
+        <Stack.Screen
+          name="Élus commission CSE"
+          component={ElusCommission}
+          options={{
+            headerTitle: null,
+            headerBackTitle: "Retour",
+          }}
+        />
+        <Stack.Screen
+          name="Délégués syndicaux"
+          component={Delegues}
+          options={{
+            headerTitle: null,
+            headerBackTitle: "Retour",
+          }}
+        />
+        <Stack.Screen
+          name="Accords Anjou Maine"
+          component={AnjouMaine}
+          options={{
+            headerTitle: null,
+          }}
+        />
+        <Stack.Screen
+          name="Accords nationaux"
+          component={Nationaux}
+          options={{
+            headerTitle: null,
+            headerBackTitle: "Retour",
+          }}
+        />
         <Stack.Screen
           name="Convention Collective"
           component={ConventionCollective}
+          options={{
+            headerTitle: null,
+            headerBackTitle: "Retour",
+          }}
         />
-        <Stack.Screen name="Réglement intérieur" component={Reglement} />
+        <Stack.Screen
+          name="Réglement intérieur"
+          component={Reglement}
+          options={{
+            headerTitle: null,
+            headerBackTitle: "Retour",
+          }}
+        />
       </Stack.Navigator>
     );
   }

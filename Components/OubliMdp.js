@@ -34,6 +34,7 @@ class OubliMDP extends React.Component {
       .catch((error) =>
         Alert.alert("Erreur ", error.message, [{ text: "Ok" }])
       );
+
     this.props.navigation.navigate("Profil");
   };
   componentDidMount() {

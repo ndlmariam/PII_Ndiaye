@@ -41,6 +41,7 @@ class CFDTMoiStack extends React.Component {
           options={{
             headerLeft: () => LogoMenu({ navigation }),
             headerTitle: () => LogoTitle({ navigation }),
+            headerBackTitle: "Retour",
           }}
         />
         <Stack.Screen
@@ -48,6 +49,7 @@ class CFDTMoiStack extends React.Component {
           component={Adhesion}
           options={{
             headerTitle: () => LogoTitle({ navigation }),
+            headerBackTitle: "Retour",
           }}
         />
         <Stack.Screen
@@ -55,6 +57,7 @@ class CFDTMoiStack extends React.Component {
           component={Definition}
           options={{
             headerTitle: () => LogoTitle({ navigation }),
+            headerBackTitle: "Retour",
           }}
         />
         <Stack.Screen
@@ -62,6 +65,7 @@ class CFDTMoiStack extends React.Component {
           component={Pourquoi}
           options={{
             headerTitle: () => LogoTitle({ navigation }),
+            headerBackTitle: "Retour",
           }}
         />
         <Stack.Screen
@@ -69,6 +73,7 @@ class CFDTMoiStack extends React.Component {
           component={MesDroits}
           options={{
             headerTitle: () => LogoTitle({ navigation }),
+            headerBackTitle: "Retour",
           }}
         />
       </Stack.Navigator>

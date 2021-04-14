@@ -8,6 +8,9 @@ class ProfilConnecte extends React.Component {
   handleSignOut = () => {
     firebase.auth().signOut().then(this.props.navigation.navigate("Accueil"));
   };
+  componentDidMount() {
+    this.getUser();
+  }
   getUser() {
     user = firebase.auth().currentUser;
     user.reload();
@@ -20,9 +23,6 @@ class ProfilConnecte extends React.Component {
       //emailVerified = user.emailVerified;
       //uid = user.uid;
     }
-  }
-  componentDidMount() {
-    this.getUser();
   }
   render() {
     this.getUser();
@@ -38,9 +38,10 @@ class ProfilConnecte extends React.Component {
         <Text style={styles.text}>Adresse mail : {email}</Text>
         <Button
           title="Changer adresse mail"
-          onPress={() =>
-            this.props.navigation.navigate("ChangeAdresse", { email: email })
-          }
+          onPress={() => {
+            this.props.navigation.navigate("ChangeAdresse", { email: email });
+            this.getUser();
+          }}
         />
         <Button
           title="Changer mot de passe"

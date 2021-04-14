@@ -27,8 +27,6 @@ class ChangeAdresse extends React.Component {
       .signInWithEmailAndPassword(oldemail, mdp)
       .then(function (userCredential) {
         userCredential.user.updateEmail(email);
-        this.props.navigation.navigate("Profil");
-        userCredential.reload();
         Alert.alert(
           "Email modifié ",
           "Votre adresse mail a bien été mise à jour.",

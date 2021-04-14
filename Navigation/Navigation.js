@@ -42,13 +42,61 @@ class Navigation extends React.Component {
               ),
             }}
           />
-          <Drawer.Screen name="Accueil" component={AccueilStack} />
-          <Drawer.Screen name="Actualités" component={ActualitesStack} />
-          <Drawer.Screen name="La CFDT et moi" component={CFDTMoiStack} />
-          <Drawer.Screen name="Les accords" component={AccordsStack} />
-          <Drawer.Screen name="Mes élus" component={ElusStack} />
-          <Drawer.Screen name="Nous contacter" component={ContactStack} />
-          <Drawer.Screen name="Nous suivre" component={FollowStack} />
+          <Drawer.Screen
+            name="Accueil"
+            component={AccueilStack}
+            options={{
+              headerTitle: null,
+            }}
+          />
+          <Drawer.Screen
+            name="Actualités"
+            component={ActualitesStack}
+            options={{
+              headerTitle: null,
+              headerBackTitle: "Retour",
+            }}
+          />
+          <Drawer.Screen
+            name="La CFDT et moi"
+            component={CFDTMoiStack}
+            options={{
+              headerTitle: null,
+              headerBackTitle: "Retour",
+            }}
+          />
+          <Drawer.Screen
+            name="Les accords"
+            component={AccordsStack}
+            options={{
+              headerTitle: null,
+              headerBackTitle: "Retour",
+            }}
+          />
+          <Drawer.Screen
+            name="Mes élus"
+            component={ElusStack}
+            options={{
+              headerTitle: null,
+              headerBackTitle: "Retour",
+            }}
+          />
+          <Drawer.Screen
+            name="Nous contacter"
+            component={ContactStack}
+            options={{
+              headerTitle: null,
+              headerBackTitle: "Retour",
+            }}
+          />
+          <Drawer.Screen
+            name="Nous suivre"
+            component={FollowStack}
+            options={{
+              headerTitle: null,
+              headerBackTitle: "Retour",
+            }}
+          />
         </Drawer.Navigator>
       </NavigationContainer>
     );

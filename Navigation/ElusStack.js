@@ -44,6 +44,7 @@ class ElusStack extends React.Component {
           options={{
             headerLeft: () => LogoMenu({ navigation }),
             headerTitle: () => LogoTitle({ navigation }),
+            headerBackTitle: "Retour",
           }}
         />
         <Stack.Screen
@@ -51,6 +52,7 @@ class ElusStack extends React.Component {
           component={ElusCSSCT}
           options={{
             headerTitle: () => LogoTitle({ navigation }),
+            headerBackTitle: "Retour",
           }}
         />
         <Stack.Screen
@@ -58,6 +60,7 @@ class ElusStack extends React.Component {
           component={ElusCSE}
           options={{
             headerTitle: () => LogoTitle({ navigation }),
+            headerBackTitle: "Retour",
           }}
         />
         <Stack.Screen
@@ -65,6 +68,7 @@ class ElusStack extends React.Component {
           component={ElusCommission}
           options={{
             headerTitle: () => LogoTitle({ navigation }),
+            headerBackTitle: "Retour",
           }}
         />
         <Stack.Screen
@@ -72,6 +76,7 @@ class ElusStack extends React.Component {
           component={Delegues}
           options={{
             headerTitle: () => LogoTitle({ navigation }),
+            headerBackTitle: "Retour",
           }}
         />
       </Stack.Navigator>

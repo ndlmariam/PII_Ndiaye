@@ -44,6 +44,7 @@ class AccordsStack extends React.Component {
           options={{
             headerLeft: () => LogoMenu({ navigation }),
             headerTitle: () => LogoTitle({ navigation }),
+            headerBackTitle: "Retour",
           }}
         />
         <Stack.Screen
@@ -51,6 +52,7 @@ class AccordsStack extends React.Component {
           component={AnjouMaine}
           options={{
             headerTitle: () => LogoTitle({ navigation }),
+            headerBackTitle: "Retour",
           }}
         />
         <Stack.Screen
@@ -58,6 +60,7 @@ class AccordsStack extends React.Component {
           component={Nationaux}
           options={{
             headerTitle: () => LogoTitle({ navigation }),
+            headerBackTitle: "Retour",
           }}
         />
         <Stack.Screen
@@ -65,6 +68,7 @@ class AccordsStack extends React.Component {
           component={ConventionCollective}
           options={{
             headerTitle: () => LogoTitle({ navigation }),
+            headerBackTitle: "Retour",
           }}
         />
         <Stack.Screen
@@ -72,6 +76,7 @@ class AccordsStack extends React.Component {
           component={Reglement}
           options={{
             headerTitle: () => LogoTitle({ navigation }),
+            headerBackTitle: "Retour",
           }}
         />
       </Stack.Navigator>
