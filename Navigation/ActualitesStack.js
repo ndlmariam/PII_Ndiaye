@@ -1,5 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import { StyleSheet, Image, TouchableOpacity, Share } from "react-native";
+import { StyleSheet, Image, TouchableOpacity, Platform } from "react-native";
+
 import Actualites from "../Components/Actualites";
 import ActualitesMembres from "../Components/ActualitesMembres";
 import ActuDetail from "../Components/ActuDetail";

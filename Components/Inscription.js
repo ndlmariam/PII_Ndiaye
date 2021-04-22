@@ -67,7 +67,8 @@ class Inscription extends React.Component {
           style={{ height: 120, width: 120, marginBottom: 60 }}
         />
         <Text style={{ fontSize: 20, marginBottom: 30, marginHorizontal: 12 }}>
-          Entrez votre numéro d'adhérent, afin de vérifier que vous êtes membre.
+          Entrez votre numéro d'adhérent, afin de vérifier que vous êtes bien
+          élu.e.
         </Text>
         <View style={styles.textinputcontainer}>
           <TextInput

@@ -105,6 +105,9 @@ class Profil extends React.Component {
     const { navigation } = this.props;
     return (
       <View style={styles.container}>
+        <Text style={{ fontSize: 17, marginBottom: 20, fontStyle: "italic" }}>
+          Attention seuls les élus peuvent disposer d'un profil.
+        </Text>
         <Image
           source={require("../Images/utilisateur.png")}
           style={{ height: 90, width: 90, marginVertical: 20 }}

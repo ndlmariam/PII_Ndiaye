@@ -65,7 +65,7 @@ class Inscription extends React.Component {
         <View style={styles.textinputcontainer}>
           <TextInput
             autoCapitalize="none"
-            placeholder="Nom"
+            placeholder="Nom Prénom"
             style={styles.textinputcontent}
             onChangeText={(name) => this.setState({ name })}
             value={this.state.name}

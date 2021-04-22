@@ -7,6 +7,9 @@ import OubliMDP from "../Components/OubliMdp";
 import ChangeAdresse from "../Components/ChangeAdresse";
 import Instances from "../Components/Instances";
 import InscriptionFinale from "../Components/InscriptionFinale";
+import InstanceDetail from "../Components/InstanceDetail";
+import AjoutInstance from "../Components/AjoutInstance";
+import PdfReader from "../Components/PdfReader";
 import AccueilStack from "../Navigation/AccueilStack";
 import React from "react";
 import firebase from "firebase";
@@ -110,6 +113,31 @@ class ProfilStack extends React.Component {
           component={Instances}
           options={{
             headerTitle: () => LogoTitle({ navigation }),
+            headerBackTitle: "Retour",
+          }}
+        />
+        <Stack.Screen
+          name="DétailInstance"
+          component={InstanceDetail}
+          options={{
+            headerTitle: null,
+            headerBackTitle: "Retour",
+            //headerRight: () => LogoShare(),
+          }}
+        />
+        <Stack.Screen
+          name="Ajout Instance"
+          component={AjoutInstance}
+          options={{
+            headerTitle: () => LogoTitle({ navigation }),
+            headerBackTitle: "Retour",
+          }}
+        />
+        <Stack.Screen
+          name="PdfReader"
+          component={PdfReader}
+          options={{
+            headerTitle: null,
             headerBackTitle: "Retour",
           }}
         />

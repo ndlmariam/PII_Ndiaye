@@ -135,7 +135,9 @@ class Adhesion extends React.Component {
             ci-dessous. Sinon importez le directement en bas de page une fois
             remplis.
           </Text>
-          <Button title="Lien bulletin" onPress={this.onShare} />
+          <TouchableOpacity onPress={this.onShare} style={styles.telecharge}>
+            <Text style={styles.telechargetxt}>Télécharger bulletin</Text>
+          </TouchableOpacity>
         </View>
 
         <View style={{ flex: 1, paddingHorizontal: 10, marginTop: 10 }}>
@@ -169,8 +171,15 @@ class Adhesion extends React.Component {
             Joindre un RIB et les documents remplis :{" "}
           </Text>
           <View style={styles.container}>
-            <Button title={this.state.docnom} onPress={this._pickDocument} />
-            <Button title={this.state.ribnom} onPress={this._pickRIB} />
+            <TouchableOpacity
+              onPress={this._pickDocument}
+              style={styles.telecharge}
+            >
+              <Text style={styles.telechargetxt}>{this.state.docnom} </Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={this._pickRIB} style={styles.telecharge}>
+              <Text style={styles.telechargetxt}>{this.state.ribnom}</Text>
+            </TouchableOpacity>
           </View>
         </View>
         <TouchableOpacity style={styles.btn} onPress={this.adherer}>
@@ -223,6 +232,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "center",
+  },
+  telecharge: {
+    marginTop: 10,
+    alignSelf: "center",
+  },
+  telechargetxt: {
+    color: "#0072FE",
+    fontSize: 18,
   },
 });
 

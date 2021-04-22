@@ -1,5 +1,5 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import { StyleSheet, Image, TouchableOpacity, Share } from "react-native";
+import { StyleSheet, Image, TouchableOpacity, Platform } from "react-native";
 import Elus from "../Components/Elus";
 import Accueil from "../Components/Accueil";
 import Accords from "../Components/Accords";
