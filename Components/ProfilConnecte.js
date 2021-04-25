@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity, Button } from "react-native";
 import firebase from "firebase";
 import firebaseConfig from "../firebase";
-var name, email, photoUrl, uid, emailVerified;
+var name, email;
 var user;
 class ProfilConnecte extends React.Component {
   handleSignOut = () => {
@@ -19,9 +19,6 @@ class ProfilConnecte extends React.Component {
     if (user != null) {
       name = user.displayName;
       email = user.email;
-      //photoUrl = user.photoURL;
-      //emailVerified = user.emailVerified;
-      //uid = user.uid;
     }
   }
   render() {
@@ -88,7 +85,6 @@ export default ProfilConnecte;
 
 const styles = StyleSheet.create({
   container: {
-    //backgroundColor: "#F8F8F8",
     backgroundColor: "white",
     paddingTop: 20,
     flex: 3,

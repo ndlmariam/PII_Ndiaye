@@ -3,9 +3,7 @@ import {
   StyleSheet,
   Text,
   ScrollView,
-  Image,
   Dimensions,
-  Share,
   View,
   TouchableOpacity,
   Platform,
@@ -13,8 +11,6 @@ import {
 } from "react-native";
 
 import firebase from "firebase";
-import * as FileSystem from "expo-file-system";
-import * as Sharing from "expo-sharing";
 
 const image = Platform.select({
   ios: () => require("../Images/shareios.png"),

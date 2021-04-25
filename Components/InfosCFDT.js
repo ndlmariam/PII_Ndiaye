@@ -1,6 +1,5 @@
 import React from "react";
 import { StyleSheet, View, Text, ScrollView, Dimensions } from "react-native";
-//import Video from "react-native-video";
 import { Video } from "expo-av";
 
 const Definition = () => {
@@ -98,31 +97,6 @@ const Definition = () => {
           </Text>
         </View>
       </View>
-
-      {/* <View style={{ padding: 10 }}>
-        <Text
-          style={{
-            marginVertical: 10,
-            fontSize: 35,
-            color: "#E7591C",
-            textAlign: "center",
-          }}
-        >
-          Nous
-        </Text>
-        <Text style={styles.texte}>
-          Nous sommes une section syndicale de l’entreprise.
-        </Text>
-        <Text style={styles.texte}>Nous sommes élus par les salariés.</Text>
-        <Text style={styles.texte}>
-          Nous avons pour vocation de défendre les salariés à titre individuel
-          et collectif.
-        </Text>
-        <Text style={styles.texte}>
-          Nous avons un devoir de communication des actions vers les adhérents
-          et salariés.
-        </Text>
-      </View> */}
       <Text style={styles.titre}>La CFDT en 10 points</Text>
       <View style={{ padding: 15, backgroundColor: "white" }}>
         <Text style={styles.texte}>

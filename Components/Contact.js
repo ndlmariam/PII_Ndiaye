@@ -41,13 +41,32 @@ class Contact extends React.Component {
 
   send = (nom, mail, commentaire) => {
     firebase.database().ref("contacts").push({ nom, mail, commentaire });
-    this.setState({ titnomre: "", mail: "", commentaire: "" });
+    this.setState({ nom: "" });
+    this.setState({ mail: "" });
+    this.setState({ commentaire: "" });
   };
-
+  valider({ navigation }) {
+    if (
+      this.state.nom != "" &&
+      this.state.mail != "" &&
+      this.state.commentaire != ""
+    ) {
+      this.send(this.state.nom, this.state.mail, this.state.commentaire);
+      Alert.alert("Envoyé", "Votre message a bien été envoyé.", [
+        { text: "Ok" },
+      ]);
+      navigation.navigate("Accueil");
+    } else {
+      Alert.alert(
+        "Incomplet",
+        "Veuillez remplir tous les champs obligatoires (*).",
+        [{ text: "Ok" }]
+      );
+    }
+  }
   render() {
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
-      console.log(firebaseConfig);
     }
     const { navigation } = this.props;
     return (
@@ -69,8 +88,9 @@ class Contact extends React.Component {
           <Text style={{ fontSize: 19, color: "white" }}>
             Siège social : 77 avenue Olivier Messiaen 72000 Le Mans
           </Text>
-          <Text style={{ fontSize: 19, color: "white" }}>Tel : 0241478633</Text>
-          <Text style={{ fontSize: 19, color: "white" }}>Mail : </Text>
+          <Text style={{ fontSize: 19, color: "white" }}>
+            Mail : cfdt.ca.anjou.maine@gmail.com
+          </Text>
         </View>
         <View
           style={{
@@ -81,35 +101,30 @@ class Contact extends React.Component {
             Prenez contact avec nous !
           </Text>
           <TextInput
-            placeholder="Nom"
+            placeholder="Nom*"
             autoCapitalize="none"
             style={styles.textinputcontainer}
             onChangeText={(nom) => this.setState({ nom })}
+            value={this.state.nom}
           />
           <TextInput
-            placeholder="Email"
+            placeholder="Email*"
             autoCapitalize="none"
             style={styles.textinputcontainer}
             onChangeText={(mail) => this.setState({ mail })}
+            value={this.state.mail}
           />
           <TextInput
-            placeholder="Commentaire"
+            placeholder="Commentaire*"
             multiline
             style={styles.textinputCommentaire}
             onChangeText={(commentaire) => this.setState({ commentaire })}
+            value={this.state.commentaire}
           />
           <TouchableOpacity
             style={styles.btn}
             onPress={() => {
-              this.send(
-                this.state.nom,
-                this.state.mail,
-                this.state.commentaire
-              );
-              Alert.alert("Envoyé", "Votre message a bien été envoyé.", [
-                { text: "Ok" },
-              ]);
-              navigation.navigate("Accueil");
+              this.valider({ navigation });
             }}
           >
             <Text style={{ fontSize: 20, color: "white" }}>Envoyer</Text>

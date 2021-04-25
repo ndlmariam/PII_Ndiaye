@@ -53,7 +53,6 @@ class Inscription extends React.Component {
   render() {
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
-      console.log(firebaseConfig);
     }
     return (
       <View style={{ flex: 1, alignItems: "center", marginTop: 100 }}>
@@ -92,18 +91,7 @@ class Inscription extends React.Component {
             value={this.state.mdp}
           />
         </View>
-        <TouchableOpacity
-          style={styles.btn}
-          onPress={this.handleSignUp}
-          // this.send(
-          //   this.state.connecte,
-          //   this.state.id,
-          //   this.state.email,
-          //   this.state.login,
-          //   this.state.mdp
-          // );
-          //   this.props.navigation.navigate("Accueil");
-        >
+        <TouchableOpacity style={styles.btn} onPress={this.handleSignUp}>
           <Text style={{ fontSize: 20, color: "white" }}>S'inscrire</Text>
         </TouchableOpacity>
       </View>

@@ -2,12 +2,10 @@ import React from "react";
 import {
   StyleSheet,
   View,
-  Button,
   Text,
   TouchableOpacity,
   Alert,
   Image,
-  Dimensions,
 } from "react-native";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
 import firebase from "firebase";
@@ -62,9 +60,10 @@ class Ajoutactualite extends React.Component {
       description: "",
       date: "",
       uri: null,
-      urinom: "Ajouter une image",
+      urinom: "Ajouter une image*",
       pdf: null,
       pdfnom: "Sélectionner un fichier",
+      lien: "",
     };
   }
 
@@ -83,23 +82,25 @@ class Ajoutactualite extends React.Component {
               date: child.val().date,
               uri: child.val().uri,
               pdf: child.val().pdf,
+              lien: child.val().lien,
             });
           });
           this.setState({ actualites: li });
         });
   }
 
-  send = (titre, description, date, uri, pdf) => {
+  send = (titre, description, date, uri, pdf, lien) => {
     firebase
       .database()
       .ref("actualités")
-      .push({ titre, description, date, uri, pdf });
+      .push({ titre, description, date, uri, pdf, lien });
     this.setState({
       titre: "",
       description: "",
       date: "",
       uri: null,
       pdf: null,
+      lien: "",
     });
   };
   _pickImage = async () => {
@@ -134,8 +135,51 @@ class Ajoutactualite extends React.Component {
       .child("Actualites/" + titre + "_" + date);
     return ref.put(blob);
   };
+  valider = () => {
+    if (
+      this.state.titre != "" &&
+      this.state.description != "" &&
+      this.state.uri != "" &&
+      this.state.uri != undefined &&
+      this.state.uri != null
+    ) {
+      this.send(
+        this.state.titre,
+        this.state.description,
+        this.state.date,
+        this.state.uri,
+        this.state.pdf,
+        this.state.lien
+      ),
+        this.uploadDocument(this.state.pdf, this.state.titre, this.state.date);
+      Alert.alert("Ajouté", "Une nouvelle actualité vient d'être créée.", [
+        { text: "Ok" },
+      ]),
+        this.props.navigation.navigate("Actualités");
+    } else if (this.state.titre != "" && this.state.description != "") {
+      Alert.alert("Image", "Veuillez ajouter une image à votre actualité.", [
+        { text: "Ok" },
+      ]);
+    } else if (
+      this.state.uri != "" &&
+      this.state.uri != undefined &&
+      this.state.uri != null
+    ) {
+      Alert.alert(
+        "Champs incomplets",
+        "Veuillez remplir tous les champs obligatoires (*).",
+        [{ text: "Ok" }]
+      );
+    } else {
+      Alert.alert(
+        "Incomplet",
+        "Veuillez remplir tous les champs obligatoires (*) et ajouter une image à votre actualité.",
+        [{ text: "Ok" }]
+      );
+    }
+  };
   render() {
-    let { uri, pdf } = this.state;
+    let { uri } = this.state;
     return (
       <ScrollView
         style={{
@@ -149,43 +193,39 @@ class Ajoutactualite extends React.Component {
         </Text>
         <TextInput
           style={{ padding: 20 }}
-          placeholder="Titre"
+          placeholder="Titre*"
           onChangeText={(titre) => this.setState({ titre })}
           style={styles.textinputcontainer}
         />
         <TextInput
           multiline
-          placeholder="Description"
+          placeholder="Description*"
           onChangeText={(description) => this.setState({ description })}
           style={styles.textinputCommentaire}
         />
-        <View style={{ marginTop: 20, alignItems: "center" }}>
-          <Button title={this.state.urinom} onPress={this._pickImage} />
-          {uri && (
-            <Image source={{ uri: uri }} style={{ width: 200, height: 200 }} />
-          )}
-          <Button title={this.state.pdfnom} onPress={this._pickDocument} />
-        </View>
+        <TextInput
+          style={{ padding: 20 }}
+          placeholder="Lien"
+          onChangeText={(lien) => this.setState({ lien })}
+          style={styles.textinputcontainer}
+        />
+        <TouchableOpacity onPress={this._pickImage} style={styles.telecharge}>
+          <Text style={styles.telechargetxt}>{this.state.urinom}</Text>
+        </TouchableOpacity>
+        {uri && (
+          <Image
+            source={{ uri: uri }}
+            style={{ width: 200, height: 200, alignSelf: "center" }}
+          />
+        )}
+        <TouchableOpacity
+          onPress={this._pickDocument}
+          style={styles.telecharge}
+        >
+          <Text style={styles.telechargetxt}>{this.state.pdfnom}</Text>
+        </TouchableOpacity>
         <View style={{ alignItems: "center", marginVertical: 30 }}>
-          <TouchableOpacity
-            style={styles.btn}
-            onPress={() => {
-              this.send(
-                this.state.titre,
-                this.state.description,
-                this.state.date,
-                this.state.uri,
-                this.state.pdf
-              ),
-                this.uploadDocument(pdf, this.state.titre, this.state.date);
-              Alert.alert(
-                "Ajouté",
-                "Une nouvelle actualité vient d'être créée.",
-                [{ text: "Ok" }]
-              ),
-                this.props.navigation.navigate("Actualités");
-            }}
-          >
+          <TouchableOpacity style={styles.btn} onPress={this.valider}>
             <Text style={{ fontSize: 20, color: "white" }}>Valider</Text>
           </TouchableOpacity>
         </View>
@@ -227,13 +267,21 @@ const styles = StyleSheet.create({
     backgroundColor: "#F5F6F6",
     fontSize: 20,
     borderRadius: 10,
-    height: 400,
+    height: 200,
     width: 400,
     paddingLeft: 20,
     marginVertical: 10,
-    alignItems: "center",
+    //alignItems: "center",
     borderColor: "#F6A924",
     borderWidth: 1,
+  },
+  telecharge: {
+    marginTop: 20,
+    alignSelf: "center",
+  },
+  telechargetxt: {
+    color: "#0072FE",
+    fontSize: 18,
   },
 });
 

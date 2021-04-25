@@ -4,8 +4,6 @@ import {
   View,
   Text,
   ScrollView,
-  Button,
-  Share,
   TextInput,
   TouchableOpacity,
   Alert,

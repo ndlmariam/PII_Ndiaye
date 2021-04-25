@@ -1,12 +1,9 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { StyleSheet, Image, TouchableOpacity } from "react-native";
 import Accords from "../Components/Accords";
-import {
-  AnjouMaine,
-  Nationaux,
-  ConventionCollective,
-  Reglement,
-} from "../Components/AccordsDef";
+import PdfReader from "../Components/PdfReader";
+import PdfReaderAccords from "../Components/PdfReaderAccords";
+import { AnjouMaine, Reglement } from "../Components/AccordsDef";
 import React from "react";
 
 const LogoTitle = ({ navigation }) => {
@@ -56,26 +53,26 @@ class AccordsStack extends React.Component {
           }}
         />
         <Stack.Screen
-          name="Accords nationaux"
-          component={Nationaux}
-          options={{
-            headerTitle: () => LogoTitle({ navigation }),
-            headerBackTitle: "Retour",
-          }}
-        />
-        <Stack.Screen
-          name="Convention Collective"
-          component={ConventionCollective}
-          options={{
-            headerTitle: () => LogoTitle({ navigation }),
-            headerBackTitle: "Retour",
-          }}
-        />
-        <Stack.Screen
           name="Réglement intérieur"
           component={Reglement}
           options={{
             headerTitle: () => LogoTitle({ navigation }),
+            headerBackTitle: "Retour",
+          }}
+        />
+        <Stack.Screen
+          name="PdfReader"
+          component={PdfReader}
+          options={{
+            headerTitle: null,
+            headerBackTitle: "Retour",
+          }}
+        />
+        <Stack.Screen
+          name="PdfReaderAccords"
+          component={PdfReaderAccords}
+          options={{
+            headerTitle: null,
             headerBackTitle: "Retour",
           }}
         />

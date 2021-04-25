@@ -1,9 +1,9 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { StyleSheet, Image, TouchableOpacity } from "react-native";
 import Adhesion from "../Components/Adhesion";
-import MesDroits from "../Components/MesDroits";
 import CFDTMoi from "../Components/CFDTMoi";
 import { Definition, Pourquoi } from "../Components/InfosCFDT";
+import PdfReader from "../Components/PdfReader";
 import React from "react";
 
 const LogoTitle = ({ navigation }) => {
@@ -69,10 +69,10 @@ class CFDTMoiStack extends React.Component {
           }}
         />
         <Stack.Screen
-          name="Mes droits"
-          component={MesDroits}
+          name="PdfReader"
+          component={PdfReader}
           options={{
-            headerTitle: () => LogoTitle({ navigation }),
+            headerTitle: null,
             headerBackTitle: "Retour",
           }}
         />

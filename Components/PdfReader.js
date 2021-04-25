@@ -1,10 +1,6 @@
 import { View, StyleSheet } from "react-native";
 import React from "react";
-import WebView from "react-native-webview";
-
-const PdfReader = ({ url: uri }) => (
-  <WebView style={{ flex: 1 }} source={{ uri }} />
-);
+import PDFReader from "rn-pdf-reader-js";
 
 export default class PdfReaderScreen extends React.Component {
   constructor(props) {
@@ -13,7 +9,11 @@ export default class PdfReaderScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <PdfReader url={this.props.route.params.uri} />
+        <PDFReader
+          source={{
+            uri: this.props.route.params.uri,
+          }}
+        />
       </View>
     );
   }
@@ -22,7 +22,6 @@ export default class PdfReaderScreen extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    //paddingTop: Constants.statusBarHeight,
     backgroundColor: "#ecf0f1",
   },
 });

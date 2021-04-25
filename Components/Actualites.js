@@ -2,7 +2,6 @@ import React from "react";
 import {
   StyleSheet,
   View,
-  Button,
   FlatList,
   Text,
   TouchableOpacity,
@@ -10,7 +9,7 @@ import {
 } from "react-native";
 import firebase from "firebase";
 import firebaseConfig from "../firebase";
-class Actualites extends React.Component {
+class ActualitesMembres extends React.Component {
   constructor(props) {
     super(props);
     this.ChangeText = "";
@@ -20,7 +19,7 @@ class Actualites extends React.Component {
       description: "",
       date: "",
       uri: "",
-      pdf: "",
+      lien: "",
     };
   }
   componentDidMount() {
@@ -36,19 +35,19 @@ class Actualites extends React.Component {
             description: child.val().description,
             date: child.val().date,
             uri: child.val().uri,
-            pdf: child.val().pdf,
+            lien: child.val().lien,
           });
         });
         this.setState({ actualites: li });
       });
   }
-  _displayDetail = (titre, description, date, uri, pdf) => {
+  _displayDetail = (titre, description, date, uri, lien) => {
     this.props.navigation.navigate("Détail", {
       titre: titre,
       description: description,
       date: date,
       uri: uri,
-      pdf: pdf,
+      lien: lien,
     });
   };
 
@@ -79,11 +78,11 @@ class Actualites extends React.Component {
                       item.description,
                       item.date,
                       item.uri,
-                      item.pdf
+                      item.lien
                     );
                   }}
                   style={{
-                    height: 135,
+                    height: 120,
                     justifyContent: "center",
                     backgroundColor: "white",
                     flexDirection: "row",
@@ -104,7 +103,7 @@ class Actualites extends React.Component {
                     />
                   </View>
 
-                  <View style={{ flex: 1.5 }}>
+                  <View style={{ flex: 2.7 }}>
                     <Text style={styles.liste}> {item.titre} </Text>
                     <Text style={styles.date}> Publié le {item.date} </Text>
                   </View>
@@ -122,7 +121,7 @@ const styles = StyleSheet.create({
   liste: {
     margin: 2,
     fontSize: 20,
-    paddingVertical: 9,
+    padding: 7,
     color: "#555554",
   },
   date: {
@@ -133,8 +132,9 @@ const styles = StyleSheet.create({
     color: "#E7591C",
   },
   tinyLogo: {
-    height: 130,
-    width: 150,
+    height: 110,
+    width: 110,
   },
 });
-export default Actualites;
+
+export default ActualitesMembres;

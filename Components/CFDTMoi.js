@@ -7,6 +7,17 @@ import {
   Image,
   Dimensions,
 } from "react-native";
+import firebase from "firebase";
+
+var url = "";
+const test = firebase
+  .storage()
+  .ref("mesdroits.pdf")
+  .getDownloadURL()
+  .then((uri) => {
+    url = uri;
+  })
+  .catch();
 
 const CFDTMoi = ({ navigation }) => {
   return (
@@ -34,7 +45,9 @@ const CFDTMoi = ({ navigation }) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.bloc1}
-          onPress={() => navigation.navigate("Mes droits")}
+          onPress={() => {
+            navigation.navigate("PdfReader", { uri: url });
+          }}
         >
           <Text style={styles.texte1}>Mes droits</Text>
           <Image

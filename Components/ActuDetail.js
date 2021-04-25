@@ -10,6 +10,7 @@ import {
   TouchableOpacity,
   Platform,
   Alert,
+  Linking,
 } from "react-native";
 
 import firebase from "firebase";
@@ -29,38 +30,41 @@ class ActuDetail extends React.Component {
       url: "",
     };
   }
-
+  onShareDescription = async () => {
+    try {
+      const result = await Share.share({
+        message:
+          this.props.route.params.titre +
+          "\nDescription : \n" +
+          this.props.route.params.description,
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      //alert(error.message);
+    }
+  };
   onShare = async () => {
     if (this.state.url == "") {
-      try {
-        const result = await Share.share({
-          message:
-            this.props.route.params.titre +
-            "\nDescription : \n" +
-            this.props.route.params.description,
-        });
-        if (result.action === Share.sharedAction) {
-          if (result.activityType) {
-            // shared with activity type of result.activityType
-          } else {
-            // shared
-          }
-        } else if (result.action === Share.dismissedAction) {
-          // dismissed
-        }
-      } catch (error) {
-        //alert(error.message);
-      }
+      this.onShareDescription();
     } else {
       const titre = this.props.route.params.titre.replace(/ /g, "");
       const { uri: localUri } = await FileSystem.downloadAsync(
         this.state.url,
         FileSystem.documentDirectory + titre + ".pdf"
       ).catch(() => {
-        Alert.alert("Erreur", "Problème avec le document.", [{ text: "Ok" }]);
+        //Alert.alert("Erreur", error.message, [{ text: "Ok" }]);
+        this.onShareDescription();
       });
       await Sharing.shareAsync(localUri).catch(() =>
-        Alert.alert("Erreur", "Problème avec le document.", [{ text: "Ok" }])
+        Alert.alert("Erreur", "Problème de partage.", [{ text: "Ok" }])
       );
     }
   };
@@ -77,6 +81,14 @@ class ActuDetail extends React.Component {
       });
     }
   };
+  lienExterne = () => {
+    if (
+      this.props.route.params.lien != undefined ||
+      this.props.route.params.lien != ""
+    ) {
+      Linking.openURL(this.props.route.params.lien);
+    }
+  };
   componentDidMount() {
     const test = firebase
       .storage()
@@ -90,7 +102,7 @@ class ActuDetail extends React.Component {
       .then((url) => {
         this.setState({ url: url });
       })
-      .catch(() => {});
+      .catch();
   }
 
   render() {
@@ -130,6 +142,9 @@ class ActuDetail extends React.Component {
         <Text style={styles.description}>
           {this.props.route.params.description}
         </Text>
+        <TouchableOpacity style={styles.touchable} onPress={this.lienExterne}>
+          <Text style={styles.lien}>{this.props.route.params.lien}</Text>
+        </TouchableOpacity>
       </ScrollView>
     );
   }

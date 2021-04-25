@@ -42,56 +42,6 @@ class Profil extends React.Component {
       mdp: textEntre,
     });
   };
-  // verification(login, mdp) {
-  //   var ref = firebase.database().ref("utilisateurs");
-  //   var refkey = "";
-  //   var mail = "";
-  //   var id = "";
-  //   ref
-  //     .orderByChild("login" && "mdp")
-  //     .equalTo(login && mdp)
-  //     // .orderByChild("mdp")
-  //     // .equalTo(mdp)
-  //     .on("child_added", function (snapshot) {
-  //       refkey = snapshot.key;
-  //       mail = snapshot.val().email;
-  //       id = snapshot.val().id;
-  //     });
-
-  //   if (refkey != "") {
-  //     etatConnexion = true;
-  //     etatLogin = this.state.login;
-  //     Alert.alert("Identifiants corrects !", "Bons identifiants de connexion", [
-  //       { text: "Ok" },
-  //     ]);
-  //     this.setState({ mail: mail });
-  //     this.setState({ id: id });
-  //     this.setState({
-  //       connecte: true,
-  //     });
-  //     var login = this.state.login;
-  //     var mdp = this.state.mdp;
-
-  //     firebase
-  //       .database()
-  //       .ref("utilisateurs/" + refkey)
-  //       .set({ connecte: true, email: mail, id: id, login: login, mdp: mdp });
-  //     this.props.navigation.navigate("Accueil", {
-  //       connecte: true,
-  //       mail: mail,
-  //       id: id,
-  //       login: login,
-  //       mdp: mdp,
-  //     });
-  //   } else {
-  //     etatConnexion = false;
-  //     Alert.alert(
-  //       "Erreur identifiants !",
-  //       "Mot de passe ou login invalide(s), veuillez réessayer.",
-  //       [{ text: "Ok" }]
-  //     );
-  //   }
-  // }
   componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
       this.props.navigation.navigate(user ? "Profil" : "Profil");

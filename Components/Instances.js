@@ -2,7 +2,6 @@ import React from "react";
 import {
   StyleSheet,
   View,
-  Button,
   FlatList,
   Text,
   TouchableOpacity,
@@ -50,7 +49,6 @@ class Instances extends React.Component {
   render() {
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
-      console.log(firebaseConfig);
     }
     return (
       <View style={{ flex: 1, backgroundColor: "white" }}>

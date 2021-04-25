@@ -1,18 +1,7 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  Button,
-  Text,
-  TouchableOpacity,
-  Alert,
-  Image,
-  Dimensions,
-} from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity, Alert } from "react-native";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
 import firebase from "firebase";
-import firebaseConfig from "../firebase";
-import * as ImagePicker from "expo-image-picker";
 import * as DocumentPicker from "expo-document-picker";
 
 var day = new Date().getDate();
@@ -138,6 +127,39 @@ class Ajoutinstance extends React.Component {
       return ref.put(blob);
     }
   };
+
+  valider = () => {
+    if (
+      this.state.titre != "" &&
+      this.state.description != "" &&
+      this.state.prenom != ""
+    ) {
+      this.send(
+        this.state.titre,
+        this.state.description,
+        this.state.date,
+        this.state.pdf,
+        this.state.prenom
+      ),
+        this.uploadDocument(
+          this.state.pdf,
+          this.state.titre,
+          this.state.date,
+          this.state.prenom
+        );
+      Alert.alert("Ajouté", "Une nouvelle instance vient d'être créée.", [
+        { text: "Ok" },
+      ]),
+        this.props.navigation.navigate("Instances");
+    } else {
+      Alert.alert(
+        "Champs incomplets",
+        "Veuillez remplir tous les champs obligatoires (*).",
+        [{ text: "Ok" }]
+      );
+    }
+  };
+
   render() {
     let { pdf } = this.state;
     return (
@@ -153,50 +175,30 @@ class Ajoutinstance extends React.Component {
         </Text>
         <TextInput
           style={{ padding: 20 }}
-          placeholder="Titre"
+          placeholder="Titre*"
           onChangeText={(titre) => this.setState({ titre })}
           style={styles.textinputcontainer}
         />
         <TextInput
           style={{ padding: 20 }}
-          placeholder="Prénom du rédacteur"
+          placeholder="Prénom du rédacteur*"
           onChangeText={(prenom) => this.setState({ prenom })}
           style={styles.textinputcontainer}
         />
         <TextInput
           multiline
-          placeholder="Description"
+          placeholder="Description*"
           onChangeText={(description) => this.setState({ description })}
           style={styles.textinputCommentaire}
         />
-        <View style={{ marginTop: 20, alignItems: "center" }}>
-          <Button title={this.state.pdfnom} onPress={this._pickDocument} />
-        </View>
+        <TouchableOpacity
+          onPress={this._pickDocument}
+          style={styles.telecharge}
+        >
+          <Text style={styles.telechargetxt}>{this.state.pdfnom}</Text>
+        </TouchableOpacity>
         <View style={{ alignItems: "center", marginVertical: 30 }}>
-          <TouchableOpacity
-            style={styles.btn}
-            onPress={() => {
-              this.send(
-                this.state.titre,
-                this.state.description,
-                this.state.date,
-                this.state.pdf,
-                this.state.prenom
-              ),
-                this.uploadDocument(
-                  pdf,
-                  this.state.titre,
-                  this.state.date,
-                  this.state.prenom
-                );
-              Alert.alert(
-                "Ajouté",
-                "Une nouvelle instance vient d'être créée.",
-                [{ text: "Ok" }]
-              ),
-                this.props.navigation.navigate("Instances");
-            }}
-          >
+          <TouchableOpacity style={styles.btn} onPress={this.valider}>
             <Text style={{ fontSize: 20, color: "white" }}>Valider</Text>
           </TouchableOpacity>
         </View>
@@ -245,6 +247,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderColor: "#F6A924",
     borderWidth: 1,
+  },
+  telecharge: {
+    marginTop: 20,
+    alignSelf: "center",
+  },
+  telechargetxt: {
+    color: "#0072FE",
+    fontSize: 18,
   },
 });
 

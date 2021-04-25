@@ -9,6 +9,16 @@ import {
 import firebase from "firebase";
 import firebaseConfig from "../firebase";
 
+var url = "";
+const test = firebase
+  .storage()
+  .ref("mesdroits.pdf")
+  .getDownloadURL()
+  .then((uri) => {
+    url = uri;
+  })
+  .catch();
+
 class Accueil extends React.Component {
   render() {
     if (!firebase.apps.length) {
@@ -46,7 +56,9 @@ class Accueil extends React.Component {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.button2}
-              onPress={() => navigation.navigate("Mes droits")}
+              onPress={() => {
+                navigation.navigate("PdfReader", { uri: url });
+              }}
             >
               <Image
                 source={require("../Images/droits.png")}

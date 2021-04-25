@@ -7,6 +7,16 @@ import {
   Image,
   Dimensions,
 } from "react-native";
+import firebase from "firebase";
+var url = "";
+const test = firebase
+  .storage()
+  .ref("convention.pdf")
+  .getDownloadURL()
+  .then((uri) => {
+    url = uri;
+  })
+  .catch();
 
 const Accords = ({ navigation }) => {
   return (
@@ -22,11 +32,14 @@ const Accords = ({ navigation }) => {
             style={styles.image}
           />
         </TouchableOpacity>
+
         <TouchableOpacity
           style={styles.bloc2}
-          onPress={() => navigation.navigate("Accords nationaux")}
+          onPress={() => {
+            navigation.navigate("PdfReader", { uri: url });
+          }}
         >
-          <Text style={styles.texte2}>Accords nationaux</Text>
+          <Text style={styles.texte2}>Convention collective</Text>
           <Image
             source={require("../Images/suivant.png")}
             style={styles.image}
@@ -34,19 +47,9 @@ const Accords = ({ navigation }) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.bloc1}
-          onPress={() => navigation.navigate("Convention Collective")}
-        >
-          <Text style={styles.texte1}>Convention collective</Text>
-          <Image
-            source={require("../Images/suivant.png")}
-            style={styles.image}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.bloc2}
           onPress={() => navigation.navigate("Réglement intérieur")}
         >
-          <Text style={styles.texte2}>Réglement intérieur</Text>
+          <Text style={styles.texte1}>Réglement intérieur</Text>
           <Image
             source={require("../Images/suivant.png")}
             style={styles.image}

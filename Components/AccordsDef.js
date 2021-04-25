@@ -18,7 +18,7 @@ class AnjouMaine extends React.Component {
   }
 
   onShare = async (lien) => {
-    this.props.navigation.navigate("PdfReader", { uri: lien });
+    this.props.navigation.navigate("PdfReaderAccords", { uri: lien });
   };
 
   componentDidMount() {
@@ -73,136 +73,6 @@ class AnjouMaine extends React.Component {
   }
 }
 
-class Nationaux extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      accords: [],
-    };
-  }
-
-  onShare = async (lien) => {
-    this.props.navigation.navigate("PdfReader", { uri: lien });
-  };
-
-  componentDidMount() {
-    firebase
-      .database()
-      .ref("accords/nationaux")
-      .on("value", (snapshot) => {
-        var li = [];
-        snapshot.forEach((child) => {
-          li.push({
-            key: child.key,
-            nom: child.val().nom,
-            lien: child.val().lien,
-          });
-        });
-        this.setState({ accords: li });
-      });
-  }
-
-  render() {
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-    }
-    return (
-      <View style={{ flex: 1, backgroundColor: "white" }}>
-        <FlatList
-          style={{
-            color: "black",
-          }}
-          ListHeaderComponent={
-            <View>
-              <Text style={styles.titre}>Principaux accords nationaux</Text>
-              <Text style={styles.info}>
-                Tous les accords sont disponibles sur COMMEO/RH
-              </Text>
-            </View>
-          }
-          data={this.state.accords.reverse()}
-          keyExtractor={(item) => item.key}
-          renderItem={({ item }) => {
-            return (
-              <View>
-                <TouchableOpacity onPress={() => this.onShare(item.lien)}>
-                  <Text style={styles.liste}> - {item.nom} </Text>
-                </TouchableOpacity>
-              </View>
-            );
-          }}
-        />
-      </View>
-    );
-  }
-}
-
-class ConventionCollective extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      accords: [],
-    };
-  }
-
-  onShare = async (lien) => {
-    this.props.navigation.navigate("PdfReader", { uri: lien });
-  };
-
-  componentDidMount() {
-    firebase
-      .database()
-      .ref("accords/convention")
-      .on("value", (snapshot) => {
-        var li = [];
-        snapshot.forEach((child) => {
-          li.push({
-            key: child.key,
-            nom: child.val().nom,
-            lien: child.val().lien,
-          });
-        });
-        this.setState({ accords: li });
-      });
-  }
-
-  render() {
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-    }
-    return (
-      <View style={{ flex: 1, backgroundColor: "white" }}>
-        <FlatList
-          style={{
-            color: "black",
-          }}
-          ListHeaderComponent={
-            <View>
-              <Text style={styles.titre}>
-                Principales conventions collectives
-              </Text>
-              <Text style={styles.info}>
-                Tous les accords sont disponibles sur COMMEO/RH
-              </Text>
-            </View>
-          }
-          data={this.state.accords.reverse()}
-          keyExtractor={(item) => item.key}
-          renderItem={({ item }) => {
-            return (
-              <View>
-                <TouchableOpacity onPress={() => this.onShare(item.lien)}>
-                  <Text style={styles.liste}> - {item.nom} </Text>
-                </TouchableOpacity>
-              </View>
-            );
-          }}
-        />
-      </View>
-    );
-  }
-}
-
 class Reglement extends React.Component {
   constructor(props) {
     super(props);
@@ -212,7 +82,7 @@ class Reglement extends React.Component {
   }
 
   onShare = async (lien) => {
-    this.props.navigation.navigate("PdfReader", { uri: lien });
+    this.props.navigation.navigate("PdfReaderAccords", { uri: lien });
   };
 
   componentDidMount() {
@@ -269,7 +139,7 @@ class Reglement extends React.Component {
   }
 }
 
-export { AnjouMaine, Nationaux, ConventionCollective, Reglement };
+export { AnjouMaine, Reglement };
 
 const styles = StyleSheet.create({
   liste: {

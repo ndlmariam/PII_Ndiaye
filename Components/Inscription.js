@@ -36,7 +36,6 @@ class Inscription extends React.Component {
         inscrit = snapshot.val().inscrit;
       });
       if (inscrit === false) {
-        //ref.set({ inscrit: true, num: this.state.num });
         this.props.navigation.navigate("InscriptionFinale", {
           ref: ref,
           num: this.state.num,

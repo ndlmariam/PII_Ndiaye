@@ -3,6 +3,7 @@ import { StyleSheet, Image, TouchableOpacity, Platform } from "react-native";
 
 import Actualites from "../Components/Actualites";
 import ActualitesMembres from "../Components/ActualitesMembres";
+import PdfReader from "../Components/PdfReader";
 import ActuDetail from "../Components/ActuDetail";
 import AjoutActualite from "../Components/AjoutActualite";
 import React from "react";
@@ -32,34 +33,6 @@ const image = Platform.select({
   android: () => require("../Images/shareandroid.png"),
   web: () => require("../Images/shareandroid.png"),
 })();
-
-// const onShare = async () => {
-//   try {
-//     const result = await Share.share({
-//       message: "Bonjour" + this.props.route.params.description,
-//     });
-//     if (result.action === Share.sharedAction) {
-//       if (result.activityType) {
-//         // shared with activity type of result.activityType
-//       } else {
-//         // shared
-//       }
-//     } else if (result.action === Share.dismissedAction) {
-//       // dismissed
-//     }
-//   } catch (error) {
-//     alert(error.message);
-//   }
-// };
-
-// const LogoShare = () => {
-//   return (
-//     <TouchableOpacity onPress={onShare}>
-//       <Image source={image} style={{ width: 26, height: 26, margin: 5 }} />
-//     </TouchableOpacity>
-//   );
-// };
-
 const Stack = createStackNavigator();
 
 class ActualitesStack extends React.Component {
@@ -86,7 +59,6 @@ class ActualitesStack extends React.Component {
   render() {
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
-      console.log(firebaseConfig);
     }
     const { navigation } = this.props;
     return (
@@ -97,6 +69,14 @@ class ActualitesStack extends React.Component {
           options={{
             headerLeft: () => LogoMenu({ navigation }),
             headerTitle: () => LogoTitle({ navigation }),
+            headerBackTitle: "Retour",
+          }}
+        />
+        <Stack.Screen
+          name="PdfReader"
+          component={PdfReader}
+          options={{
+            headerTitle: null,
             headerBackTitle: "Retour",
           }}
         />

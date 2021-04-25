@@ -2,7 +2,6 @@ import React from "react";
 import {
   StyleSheet,
   View,
-  Button,
   FlatList,
   Text,
   TouchableOpacity,
@@ -20,6 +19,7 @@ class ActualitesMembres extends React.Component {
       description: "",
       date: "",
       uri: "",
+      lien: "",
     };
   }
   componentDidMount() {
@@ -35,24 +35,25 @@ class ActualitesMembres extends React.Component {
             description: child.val().description,
             date: child.val().date,
             uri: child.val().uri,
+            lien: child.val().lien,
           });
         });
         this.setState({ actualites: li });
       });
   }
-  _displayDetail = (titre, description, date, uri) => {
+  _displayDetail = (titre, description, date, uri, lien) => {
     this.props.navigation.navigate("Détail", {
       titre: titre,
       description: description,
       date: date,
       uri: uri,
+      lien: lien,
     });
   };
 
   render() {
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
-      console.log(firebaseConfig);
     }
     return (
       <View style={{ flex: 1, backgroundColor: "white" }}>
@@ -94,7 +95,8 @@ class ActualitesMembres extends React.Component {
                       item.titre,
                       item.description,
                       item.date,
-                      item.uri
+                      item.uri,
+                      item.lien
                     );
                   }}
                   style={{

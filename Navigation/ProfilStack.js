@@ -1,6 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import { StyleSheet, Image, TouchableOpacity } from "react-native";
-import Profil, { etatConnexion } from "../Components/Profil";
+import Profil from "../Components/Profil";
 import ProfilConnecte from "../Components/ProfilConnecte";
 import Inscription from "../Components/Inscription";
 import OubliMDP from "../Components/OubliMdp";
@@ -10,7 +10,7 @@ import InscriptionFinale from "../Components/InscriptionFinale";
 import InstanceDetail from "../Components/InstanceDetail";
 import AjoutInstance from "../Components/AjoutInstance";
 import PdfReader from "../Components/PdfReader";
-import AccueilStack from "../Navigation/AccueilStack";
+
 import React from "react";
 import firebase from "firebase";
 import firebaseConfig from "../firebase";
@@ -62,7 +62,6 @@ class ProfilStack extends React.Component {
   render() {
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
-      console.log(firebaseConfig);
     }
     const { navigation } = this.props;
     return (

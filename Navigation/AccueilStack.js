@@ -6,11 +6,10 @@ import Accords from "../Components/Accords";
 import Adhesion from "../Components/Adhesion";
 import Actualites from "../Components/Actualites";
 import ActualitesMembres from "../Components/ActualitesMembres";
-import MesDroits from "../Components/MesDroits";
 import ActuDetail from "../Components/ActuDetail";
 import AjoutActualite from "../Components/AjoutActualite";
 import PdfReader from "../Components/PdfReader";
-
+import PdfReaderAccords from "../Components/PdfReaderAccords";
 import firebase from "firebase";
 import firebaseConfig from "../firebase";
 import {
@@ -19,12 +18,7 @@ import {
   ElusCommission,
   Delegues,
 } from "../Components/ElusDef";
-import {
-  AnjouMaine,
-  Nationaux,
-  ConventionCollective,
-  Reglement,
-} from "../Components/AccordsDef";
+import { AnjouMaine, Reglement } from "../Components/AccordsDef";
 import React from "react";
 
 const LogoTitle = ({ navigation }) => {
@@ -52,32 +46,6 @@ const image = Platform.select({
   web: () => require("../Images/shareandroid.png"),
 })();
 
-// const onShare = async () => {
-//   try {
-//     const result = await Share.share({
-//       message: "Bonjour" + this.props.route.params.description,
-//     });
-//     if (result.action === Share.sharedAction) {
-//       if (result.activityType) {
-//         // shared with activity type of result.activityType
-//       } else {
-//         // shared
-//       }
-//     } else if (result.action === Share.dismissedAction) {
-//       // dismissed
-//     }
-//   } catch (error) {
-//     alert(error.message);
-//   }
-// };
-
-// const LogoShare = () => {
-//   return (
-//     <TouchableOpacity onPress={onShare}>
-//       <Image source={image} style={{ width: 26, height: 26, margin: 5 }} />
-//     </TouchableOpacity>
-//   );
-// };
 const Stack = createStackNavigator();
 
 class AccueilStack extends React.Component {
@@ -104,7 +72,6 @@ class AccueilStack extends React.Component {
   render() {
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
-      console.log(firebaseConfig);
     }
     const { navigation } = this.props;
     return (
@@ -134,14 +101,14 @@ class AccueilStack extends React.Component {
             headerBackTitle: "Retour",
           }}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="Mes droits"
           component={MesDroits}
           options={{
             headerTitle: null,
             headerBackTitle: "Retour",
           }}
-        />
+        /> */}
         <Stack.Screen
           name="Accords"
           component={Accords}
@@ -222,24 +189,16 @@ class AccueilStack extends React.Component {
           }}
         />
         <Stack.Screen
-          name="Accords nationaux"
-          component={Nationaux}
-          options={{
-            headerTitle: null,
-            headerBackTitle: "Retour",
-          }}
-        />
-        <Stack.Screen
-          name="Convention Collective"
-          component={ConventionCollective}
-          options={{
-            headerTitle: null,
-            headerBackTitle: "Retour",
-          }}
-        />
-        <Stack.Screen
           name="Réglement intérieur"
           component={Reglement}
+          options={{
+            headerTitle: null,
+            headerBackTitle: "Retour",
+          }}
+        />
+        <Stack.Screen
+          name="PdfReaderAccords"
+          component={PdfReaderAccords}
           options={{
             headerTitle: null,
             headerBackTitle: "Retour",

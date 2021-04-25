@@ -19,7 +19,6 @@ class OubliMDP extends React.Component {
     };
   }
   emailVerif = () => {
-    //var emailAddress = this.state.email;
     firebase
       .auth()
       .sendPasswordResetEmail(this.state.email)
