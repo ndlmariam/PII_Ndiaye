@@ -18,9 +18,10 @@ import {
   ElusCommission,
   Delegues,
 } from "../Components/ElusDef";
-import { AnjouMaine, Reglement } from "../Components/AccordsDef";
+import { AnjouMaine } from "../Components/AccordsDef";
 import React from "react";
 
+//Création du bouton de redirection vers l'accueil
 const LogoTitle = ({ navigation }) => {
   return (
     <TouchableOpacity onPress={() => navigation.navigate("Accueil")}>
@@ -31,7 +32,7 @@ const LogoTitle = ({ navigation }) => {
     </TouchableOpacity>
   );
 };
-
+//Création du bouton d'ouverture du menu déroulant
 const LogoMenu = ({ navigation }) => {
   return (
     <TouchableOpacity onPress={() => navigation.openDrawer()}>
@@ -40,14 +41,9 @@ const LogoMenu = ({ navigation }) => {
   );
 };
 
-const image = Platform.select({
-  ios: () => require("../Images/shareios.png"),
-  android: () => require("../Images/shareandroid.png"),
-  web: () => require("../Images/shareandroid.png"),
-})();
-
 const Stack = createStackNavigator();
 
+//Définition des écrans accessibles en navigation directe à partir de l'accueil
 class AccueilStack extends React.Component {
   constructor(props) {
     super(props);
@@ -55,6 +51,7 @@ class AccueilStack extends React.Component {
       ActuStackFin: Actualites,
     };
   }
+  //Vérification de l'état de connexion de l'utilisateur pour l'affichage des pages
   listener = () => {
     const { currentUser } = firebase.auth();
     if (currentUser) {
@@ -101,14 +98,6 @@ class AccueilStack extends React.Component {
             headerBackTitle: "Retour",
           }}
         />
-        {/* <Stack.Screen
-          name="Mes droits"
-          component={MesDroits}
-          options={{
-            headerTitle: null,
-            headerBackTitle: "Retour",
-          }}
-        /> */}
         <Stack.Screen
           name="Accords"
           component={Accords}
@@ -186,14 +175,6 @@ class AccueilStack extends React.Component {
           component={AnjouMaine}
           options={{
             headerTitle: null,
-          }}
-        />
-        <Stack.Screen
-          name="Réglement intérieur"
-          component={Reglement}
-          options={{
-            headerTitle: null,
-            headerBackTitle: "Retour",
           }}
         />
         <Stack.Screen

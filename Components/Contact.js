@@ -20,31 +20,14 @@ class Contact extends React.Component {
       commentaire: "",
     };
   }
-
-  componentDidMount() {
-    firebase
-      .database()
-      .ref("contacts")
-      .on("value", (snapshot) => {
-        var li = [];
-        snapshot.forEach((child) => {
-          li.push({
-            key: child.key,
-            nom: child.val().nom,
-            mail: child.val().mail,
-            commentaire: child.val().commentaire,
-          });
-        });
-        this.setState({ actualites: li });
-      });
-  }
-
+  //Ajoute le nouveau formulaire de contact rempli à realtime database de firebase
   send = (nom, mail, commentaire) => {
     firebase.database().ref("contacts").push({ nom, mail, commentaire });
     this.setState({ nom: "" });
     this.setState({ mail: "" });
     this.setState({ commentaire: "" });
   };
+  //Vérifier le remplissage des champs avant d'envoyer le formulaire
   valider({ navigation }) {
     if (
       this.state.nom != "" &&

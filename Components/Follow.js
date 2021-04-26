@@ -8,6 +8,7 @@ import {
   Linking,
 } from "react-native";
 
+//Affichage des différents liens de redirection des réseaux sociaux de la CFDT nationale
 class Follow extends React.Component {
   constructor(props) {
     super(props);

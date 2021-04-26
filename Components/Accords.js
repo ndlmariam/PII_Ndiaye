@@ -1,3 +1,5 @@
+//Page qui permet de sélectionner les accords à visualiser
+
 import React from "react";
 import {
   StyleSheet,
@@ -8,16 +10,29 @@ import {
   Dimensions,
 } from "react-native";
 import firebase from "firebase";
-var url = "";
+
+//Recherche du règlement et de la convention collective dans storage firebase
+var urlConvention = "";
 const test = firebase
   .storage()
   .ref("convention.pdf")
   .getDownloadURL()
   .then((uri) => {
-    url = uri;
+    urlConvention = uri;
   })
   .catch();
 
+var urlReglement = "";
+const test2 = firebase
+  .storage()
+  .ref("Reglement.pdf")
+  .getDownloadURL()
+  .then((uri) => {
+    urlReglement = uri;
+  })
+  .catch();
+
+//Affichage des différents choix d'accords
 const Accords = ({ navigation }) => {
   return (
     <View style={{ flex: 1 }}>
@@ -36,7 +51,7 @@ const Accords = ({ navigation }) => {
         <TouchableOpacity
           style={styles.bloc2}
           onPress={() => {
-            navigation.navigate("PdfReader", { uri: url });
+            navigation.navigate("PdfReader", { uri: urlConvention });
           }}
         >
           <Text style={styles.texte2}>Convention collective</Text>
@@ -47,7 +62,9 @@ const Accords = ({ navigation }) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.bloc1}
-          onPress={() => navigation.navigate("Réglement intérieur")}
+          onPress={() => {
+            navigation.navigate("PdfReader", { uri: urlReglement });
+          }}
         >
           <Text style={styles.texte1}>Réglement intérieur</Text>
           <Image

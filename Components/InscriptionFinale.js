@@ -21,6 +21,7 @@ class Inscription extends React.Component {
     };
   }
 
+  //Création d'un compte avec mot de passe et adresse mail + ajout du nom utilisateur
   handleSignUp = () => {
     firebase
       .auth()
@@ -42,6 +43,7 @@ class Inscription extends React.Component {
         Alert.alert("Erreur ", errorMessage, [{ text: "Ok" }]);
       });
   };
+  //Ajout du nouvel utilisateur dans realtime database de firebase
   send = (id, email, name, mdp, connecte) => {
     firebase
       .database()

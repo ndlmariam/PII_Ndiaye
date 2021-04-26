@@ -9,6 +9,7 @@ import {
 import firebase from "firebase";
 import firebaseConfig from "../firebase";
 
+//Recherche du document pdf mes droits dans storage firebase
 var url = "";
 const test = firebase
   .storage()
@@ -19,6 +20,7 @@ const test = firebase
   })
   .catch();
 
+//Affichage de la page d'accueil avec des zones cliquables
 class Accueil extends React.Component {
   render() {
     if (!firebase.apps.length) {

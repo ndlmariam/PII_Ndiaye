@@ -18,6 +18,7 @@ class Inscription extends React.Component {
     };
   }
 
+  //Vérification de la présence du numéro d'adhérent dans la base de données -> seuls ceux des élus
   verifnumero = () => {
     var ref = firebase.database().ref("numero");
     var refkey = "";

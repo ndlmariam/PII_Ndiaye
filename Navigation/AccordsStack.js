@@ -3,9 +3,10 @@ import { StyleSheet, Image, TouchableOpacity } from "react-native";
 import Accords from "../Components/Accords";
 import PdfReader from "../Components/PdfReader";
 import PdfReaderAccords from "../Components/PdfReaderAccords";
-import { AnjouMaine, Reglement } from "../Components/AccordsDef";
+import { AnjouMaine } from "../Components/AccordsDef";
 import React from "react";
 
+//Création du bouton de redirection vers l'accueil
 const LogoTitle = ({ navigation }) => {
   return (
     <TouchableOpacity onPress={() => navigation.navigate("Accueil")}>
@@ -17,6 +18,7 @@ const LogoTitle = ({ navigation }) => {
   );
 };
 
+//Création du bouton d'ouverture du menu déroulant
 const LogoMenu = ({ navigation }) => {
   return (
     <TouchableOpacity onPress={() => navigation.openDrawer()}>
@@ -27,6 +29,7 @@ const LogoMenu = ({ navigation }) => {
 
 const Stack = createStackNavigator();
 
+//Définition des écrans accessibles en navigation directe à partir des accords
 class AccordsStack extends React.Component {
   constructor(props) {
     super(props);
@@ -47,14 +50,6 @@ class AccordsStack extends React.Component {
         <Stack.Screen
           name="Accords Anjou Maine"
           component={AnjouMaine}
-          options={{
-            headerTitle: () => LogoTitle({ navigation }),
-            headerBackTitle: "Retour",
-          }}
-        />
-        <Stack.Screen
-          name="Réglement intérieur"
-          component={Reglement}
           options={{
             headerTitle: () => LogoTitle({ navigation }),
             headerBackTitle: "Retour",

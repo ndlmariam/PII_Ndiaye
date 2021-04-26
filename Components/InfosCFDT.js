@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, View, Text, ScrollView, Dimensions } from "react-native";
 import { Video } from "expo-av";
 
+//Affichage de la page de description de la CFDT
 const Definition = () => {
   const video = React.useRef(null);
   return (
@@ -156,6 +157,7 @@ const Definition = () => {
   );
 };
 
+//Affichage de la page de pourquoi adhérer au syndicat
 const Pourquoi = () => {
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "white" }}>

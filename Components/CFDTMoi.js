@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import firebase from "firebase";
 
+//Recherche du document pdf des droits sur storage firebase
 var url = "";
 const test = firebase
   .storage()
@@ -19,6 +20,7 @@ const test = firebase
   })
   .catch();
 
+//Affichage des différents choix d'informations sur la CFDT
 const CFDTMoi = ({ navigation }) => {
   return (
     <View style={{ flex: 1 }}>

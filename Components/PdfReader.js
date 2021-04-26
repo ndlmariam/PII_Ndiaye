@@ -2,6 +2,7 @@ import { View, StyleSheet } from "react-native";
 import React from "react";
 import PDFReader from "rn-pdf-reader-js";
 
+//Permet de lire des PDF sur le téléphone -> ne marche pas sur android avec les fichiers drive
 export default class PdfReaderScreen extends React.Component {
   constructor(props) {
     super(props);

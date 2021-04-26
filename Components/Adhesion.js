@@ -14,6 +14,7 @@ import * as FileSystem from "expo-file-system";
 import * as firebase from "firebase";
 import * as Sharing from "expo-sharing";
 
+//Affichage de la page d'adhésion
 class Adhesion extends React.Component {
   constructor(props) {
     super(props);
@@ -28,6 +29,7 @@ class Adhesion extends React.Component {
       prenom: "",
     };
   }
+  //Ajout d'un adhérent dans realtime firebase
   send = (nom, prenom, email) => {
     firebase.database().ref("adherents").push({ nom, prenom, email });
     this.setState({
@@ -36,6 +38,7 @@ class Adhesion extends React.Component {
       email: "",
     });
   };
+  //Selection d'un fichier dans le téléphone de l'utilisateur
   _pickDocument = async () => {
     let result = await DocumentPicker.getDocumentAsync({
       copyToCacheDirectory: true,
@@ -45,6 +48,7 @@ class Adhesion extends React.Component {
       this.setState({ docnom: "Bulletin ajouté : " + result.name });
     }
   };
+  //Import du document téléchargé dans storage firebase
   uploadBulletin = async (uri, nom, prenom) => {
     const response = await fetch(uri);
     const blob = await response.blob();
@@ -54,6 +58,7 @@ class Adhesion extends React.Component {
       .child("Papiers/" + nom + prenom + "/Bulletin");
     return ref.put(blob);
   };
+  //Idem avec le RIB
   _pickRIB = async () => {
     let result = await DocumentPicker.getDocumentAsync({
       copyToCacheDirectory: true,
@@ -73,6 +78,7 @@ class Adhesion extends React.Component {
     return ref.put(blob);
   };
 
+  //Partage d'un document utilisé pour télécharger le bulletin vierge sur le téléphone
   onShare = async () => {
     const { uri: localUri } = await FileSystem.downloadAsync(
       "https://firebasestorage.googleapis.com/v0/b/cfdttest-cc48d.appspot.com/o/bulletin.pdf?alt=media&token=6639eff7-c419-4a32-be46-b2de01e3371c",
@@ -84,6 +90,7 @@ class Adhesion extends React.Component {
       console.log("Sharing::error", err)
     );
   };
+  //Vérifier tous les paramètres entrés avant d'envoyer la demande d'adhésion
   adherer = () => {
     if (
       this.state.doc != null &&

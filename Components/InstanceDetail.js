@@ -11,12 +11,13 @@ import {
 } from "react-native";
 
 import firebase from "firebase";
-
+//Selection de l'icone de partage en fonction de la plateforme
 const image = Platform.select({
   ios: () => require("../Images/shareios.png"),
   android: () => require("../Images/shareandroid.png"),
   web: () => require("../Images/shareandroid.png"),
 })();
+//Affichage du détail d'une instance
 class InstanceDetail extends React.Component {
   constructor(props) {
     super(props);
@@ -24,6 +25,7 @@ class InstanceDetail extends React.Component {
       instances: undefined,
     };
   }
+  //Affichage d'un fichier sous format pdf
   afficheArticle = () => {
     if (this.state.url == "" || this.state.url == undefined) {
       Alert.alert("Lien inactif", "Pas de document joint.", [{ text: "Ok" }]);
@@ -33,6 +35,7 @@ class InstanceDetail extends React.Component {
       });
     }
   };
+  //Recherche des documents d'une instance dans storage firebase
   componentDidMount() {
     if (this.props.route.params.pdf != "") {
       const test = firebase

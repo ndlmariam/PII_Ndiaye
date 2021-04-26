@@ -9,10 +9,10 @@ import {
 } from "react-native";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
 import firebase from "firebase";
-import firebaseConfig from "../firebase";
 import * as ImagePicker from "expo-image-picker";
 import * as DocumentPicker from "expo-document-picker";
 
+//Affichage de la date sous format textuel
 var day = new Date().getDate();
 var month = new Date().getMonth() + 1;
 var year = new Date().getFullYear();
@@ -52,6 +52,8 @@ if (month === 11) {
 if (month === 12) {
   month = "décembre";
 }
+
+//Affichage de la page d'ajout des actualités
 class Ajoutactualite extends React.Component {
   constructor(props) {
     super(props);
@@ -68,27 +70,10 @@ class Ajoutactualite extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ date: day + " " + month + " " + year }),
-      firebase
-        .database()
-        .ref("actualités")
-        .on("value", (snapshot) => {
-          var li = [];
-          snapshot.forEach((child) => {
-            li.push({
-              key: child.key,
-              titre: child.val().titre,
-              description: child.val().description,
-              date: child.val().date,
-              uri: child.val().uri,
-              pdf: child.val().pdf,
-              lien: child.val().lien,
-            });
-          });
-          this.setState({ actualites: li });
-        });
+    this.setState({ date: day + " " + month + " " + year });
   }
 
+  //Ajout de la nouvelle actualité dans la base de données
   send = (titre, description, date, uri, pdf, lien) => {
     firebase
       .database()
@@ -103,6 +88,7 @@ class Ajoutactualite extends React.Component {
       lien: "",
     });
   };
+  //Sélectione d'une image dans le téléphone sous forme base64 pour l'extraire de la base
   _pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
@@ -115,7 +101,7 @@ class Ajoutactualite extends React.Component {
       this.setState({ urinom: "Modifier image" });
     }
   };
-
+  //Sélection d'un fichier du téléphone
   _pickDocument = async () => {
     let result = await DocumentPicker.getDocumentAsync({
       copyToCacheDirectory: true,
@@ -125,7 +111,7 @@ class Ajoutactualite extends React.Component {
       this.setState({ pdfnom: "Document ajouté : " + result.name });
     }
   };
-
+  //Import du document téléchargé dans storage firebase
   uploadDocument = async (uri, titre, date) => {
     const response = await fetch(uri);
     const blob = await response.blob();
@@ -135,6 +121,8 @@ class Ajoutactualite extends React.Component {
       .child("Actualites/" + titre + "_" + date);
     return ref.put(blob);
   };
+
+  //Vérifie la validité des champs avant d'ajouter l'actualité
   valider = () => {
     if (
       this.state.titre != "" &&

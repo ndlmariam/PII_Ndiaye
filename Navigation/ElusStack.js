@@ -9,6 +9,7 @@ import {
 } from "../Components/ElusDef";
 import React from "react";
 
+//Création du bouton de redirection vers l'accueil
 const LogoTitle = ({ navigation }) => {
   return (
     <TouchableOpacity onPress={() => navigation.navigate("Accueil")}>
@@ -19,7 +20,7 @@ const LogoTitle = ({ navigation }) => {
     </TouchableOpacity>
   );
 };
-
+//Création du bouton d'ouverture du menu déroulant
 const LogoMenu = ({ navigation }) => {
   return (
     <TouchableOpacity onPress={() => navigation.openDrawer()}>
@@ -29,7 +30,7 @@ const LogoMenu = ({ navigation }) => {
 };
 
 const Stack = createStackNavigator();
-
+//Définition des écrans accessibles en navigation directe à partir des élus
 class ElusStack extends React.Component {
   constructor(props) {
     super(props);

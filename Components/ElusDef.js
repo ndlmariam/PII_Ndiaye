@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, View, Text, FlatList, Image } from "react-native";
 import firebase from "firebase";
 
+//Affichage des Elus de la commission CSE
 function ListElusCommission(prenom, nom, image, num, definition, poste) {
   return (
     <View style={{ flex: 1 }}>
@@ -57,7 +58,7 @@ function ListElusCommission(prenom, nom, image, num, definition, poste) {
     </View>
   );
 }
-
+//Affichage des Elus CSE et délégués syndicaux
 function ListElus(prenom, nom, image, num) {
   if (image != "") {
     return (
@@ -88,6 +89,7 @@ function ListElus(prenom, nom, image, num) {
   }
 }
 
+//Affichage des Elus du CSSCT
 function ListElusCSSCT(prenom, nom, image, num, def) {
   if (image != "") {
     return (
@@ -131,7 +133,7 @@ class ElusCSSCT extends React.Component {
       photo: "",
     };
   }
-
+  //Recherche des élus CSSCT dans realtime database de firebase
   componentDidMount() {
     firebase
       .database()
@@ -203,7 +205,7 @@ class ElusCSE extends React.Component {
       photo: null,
     };
   }
-
+  //Recherche des élus CSE dans realtime database de firebase
   componentDidMount() {
     firebase
       .database()
@@ -269,6 +271,7 @@ class ElusCommission extends React.Component {
       photo: null,
     };
   }
+  //Recherche des élus commission CSE dans realtime database de firebase
   componentDidMount() {
     firebase
       .database()
@@ -321,6 +324,7 @@ class Delegues extends React.Component {
       photo: null,
     };
   }
+  //Recherche des délégués syndicaux dans realtime database de firebase
   componentDidMount() {
     firebase
       .database()
@@ -339,16 +343,6 @@ class Delegues extends React.Component {
         this.setState({ ListDelegues: li });
       });
   }
-  recherchePhoto = (nom, prenom) => {
-    firebase
-      .storage()
-      .ref("Elus/" + nom + prenom + ".jpg")
-      .getDownloadURL()
-      .then((url) => {
-        this.setState({ photo: url });
-      })
-      .catch();
-  };
   render() {
     return (
       <View style={{ backgroundColor: "white", marginBottom: 20 }}>

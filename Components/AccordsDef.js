@@ -9,6 +9,8 @@ import {
 
 import firebase from "firebase";
 import firebaseConfig from "../firebase";
+
+//Affichage des différents accords anjou maine
 class AnjouMaine extends React.Component {
   constructor(props) {
     super(props);
@@ -20,7 +22,7 @@ class AnjouMaine extends React.Component {
   onShare = async (lien) => {
     this.props.navigation.navigate("PdfReaderAccords", { uri: lien });
   };
-
+  //Recherche des accords anjou maine dans realtime database
   componentDidMount() {
     firebase
       .database()
@@ -73,73 +75,7 @@ class AnjouMaine extends React.Component {
   }
 }
 
-class Reglement extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      accords: [],
-    };
-  }
-
-  onShare = async (lien) => {
-    this.props.navigation.navigate("PdfReaderAccords", { uri: lien });
-  };
-
-  componentDidMount() {
-    firebase
-      .database()
-      .ref("accords/reglement")
-      .on("value", (snapshot) => {
-        var li = [];
-        snapshot.forEach((child) => {
-          li.push({
-            key: child.key,
-            nom: child.val().nom,
-            lien: child.val().lien,
-          });
-        });
-        this.setState({ accords: li });
-      });
-  }
-
-  render() {
-    if (!firebase.apps.length) {
-      firebase.initializeApp(firebaseConfig);
-    }
-    return (
-      <View style={{ flex: 1, backgroundColor: "white" }}>
-        <FlatList
-          style={{
-            color: "black",
-          }}
-          ListHeaderComponent={
-            <View>
-              <Text style={styles.titre}>
-                Principaux points du réglement intérieur
-              </Text>
-              <Text style={styles.info}>
-                Tous les accords sont disponibles sur COMMEO/RH
-              </Text>
-            </View>
-          }
-          data={this.state.accords.reverse()}
-          keyExtractor={(item) => item.key}
-          renderItem={({ item }) => {
-            return (
-              <View>
-                <TouchableOpacity onPress={() => this.onShare(item.lien)}>
-                  <Text style={styles.liste}> - {item.nom} </Text>
-                </TouchableOpacity>
-              </View>
-            );
-          }}
-        />
-      </View>
-    );
-  }
-}
-
-export { AnjouMaine, Reglement };
+export { AnjouMaine };
 
 const styles = StyleSheet.create({
   liste: {

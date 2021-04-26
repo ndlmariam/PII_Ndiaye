@@ -4,7 +4,7 @@ import WebView from "react-native-webview";
 var PdfReader = ({ url: uri }) => (
   <WebView style={{ flex: 1 }} source={{ uri }} />
 );
-
+//Permet de lire des PDF sur le téléphone -> ne marche pas sur android avec les fichiers storage
 export default class PdfReaderAccordsScreen extends React.Component {
   constructor(props) {
     super(props);

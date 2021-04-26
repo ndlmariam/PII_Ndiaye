@@ -4,6 +4,7 @@ import { ScrollView, TextInput } from "react-native-gesture-handler";
 import firebase from "firebase";
 import * as DocumentPicker from "expo-document-picker";
 
+//Affichage de la date sous format textuel
 var day = new Date().getDate();
 var month = new Date().getMonth() + 1;
 var year = new Date().getFullYear();
@@ -43,6 +44,8 @@ if (month === 11) {
 if (month === 12) {
   month = "décembre";
 }
+
+//Affichage de la page d'ajout des instances
 class Ajoutinstance extends React.Component {
   constructor(props) {
     super(props);
@@ -57,26 +60,9 @@ class Ajoutinstance extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ date: day + " " + month + " " + year }),
-      firebase
-        .database()
-        .ref("instances")
-        .on("value", (snapshot) => {
-          var li = [];
-          snapshot.forEach((child) => {
-            li.push({
-              key: child.key,
-              titre: child.val().titre,
-              description: child.val().description,
-              date: child.val().date,
-              pdf: child.val().pdf,
-              prenom: child.val().prenom,
-            });
-          });
-          this.setState({ instances: li });
-        });
+    this.setState({ date: day + " " + month + " " + year });
   }
-
+  //Ajout de la nouvelle instance dans la base de données
   send = (titre, description, date, pdf, prenom) => {
     if (pdf == undefined) {
       var pdf = "";
@@ -105,7 +91,7 @@ class Ajoutinstance extends React.Component {
       });
     }
   };
-
+  //Sélection d'un fichier du téléphone
   _pickDocument = async () => {
     let result = await DocumentPicker.getDocumentAsync({
       copyToCacheDirectory: true,
@@ -115,7 +101,7 @@ class Ajoutinstance extends React.Component {
       this.setState({ pdfnom: "Document ajouté : " + result.name });
     }
   };
-
+  //Import du document téléchargé dans storage firebase
   uploadDocument = async (uri, titre, date, prenom) => {
     if (uri != null || uri != undefined || uri != "") {
       const response = await fetch(uri);
@@ -127,7 +113,7 @@ class Ajoutinstance extends React.Component {
       return ref.put(blob);
     }
   };
-
+  //Vérifie la validité des champs avant d'ajouter l'instance
   valider = () => {
     if (
       this.state.titre != "" &&

@@ -9,6 +9,8 @@ import {
 } from "react-native";
 import firebase from "firebase";
 import firebaseConfig from "../firebase";
+
+//Affichage des actualités
 class ActualitesMembres extends React.Component {
   constructor(props) {
     super(props);
@@ -22,6 +24,7 @@ class ActualitesMembres extends React.Component {
       lien: "",
     };
   }
+  //Recherches des actualités stockées dans realtime database
   componentDidMount() {
     firebase
       .database()
@@ -41,6 +44,8 @@ class ActualitesMembres extends React.Component {
         this.setState({ actualites: li });
       });
   }
+
+  //Fonction permettant de passer en paramètre les détails d'une actualité dans la navigation
   _displayDetail = (titre, description, date, uri, lien) => {
     this.props.navigation.navigate("Détail", {
       titre: titre,

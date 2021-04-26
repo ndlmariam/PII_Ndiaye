@@ -1,4 +1,3 @@
-// Navigation/Navigation.js
 import * as React from "react";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { Image } from "react-native";
@@ -13,7 +12,7 @@ import FollowStack from "../Navigation/FollowStack";
 import ContactStack from "../Navigation/ContactStack";
 
 const Drawer = createDrawerNavigator();
-
+//Définition des écrans accessibles dans le menu déroulant
 class Navigation extends React.Component {
   constructor(props) {
     super(props);

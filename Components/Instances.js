@@ -17,6 +17,7 @@ class Instances extends React.Component {
       instances: [],
     };
   }
+  //Recherches des instances stockées dans realtime database
   componentDidMount() {
     firebase
       .database()
@@ -36,6 +37,7 @@ class Instances extends React.Component {
         this.setState({ instances: li });
       });
   }
+  //Fonction permettant de passer en paramètre les détails d'une instance dans la navigation
   _displayDetail = (titre, description, date, prenom, pdf) => {
     this.props.navigation.navigate("DétailInstance", {
       titre: titre,
@@ -52,6 +54,7 @@ class Instances extends React.Component {
     }
     return (
       <View style={{ flex: 1, backgroundColor: "white" }}>
+        {/* Direction vers la page d'ajout d'une instance */}
         <TouchableOpacity
           onPress={() => this.props.navigation.navigate("Ajout Instance")}
           style={{

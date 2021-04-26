@@ -17,11 +17,13 @@ import firebase from "firebase";
 import * as FileSystem from "expo-file-system";
 import * as Sharing from "expo-sharing";
 
+//Selection de l'icone de partage en fonction de la plateforme
 const image = Platform.select({
   ios: () => require("../Images/shareios.png"),
   android: () => require("../Images/shareandroid.png"),
   web: () => require("../Images/shareandroid.png"),
 })();
+//Affichage du détail d'une actualité
 class ActuDetail extends React.Component {
   constructor(props) {
     super(props);
@@ -30,6 +32,7 @@ class ActuDetail extends React.Component {
       url: "",
     };
   }
+  //Partage d'une description (quand il n'y a pas de document)
   onShareDescription = async () => {
     try {
       const result = await Share.share({
@@ -51,6 +54,7 @@ class ActuDetail extends React.Component {
       //alert(error.message);
     }
   };
+  //Partage d'un fichier en fonction de si le fichier est bien détecté ou non
   onShare = async () => {
     if (this.state.url == "") {
       this.onShareDescription();
@@ -68,6 +72,7 @@ class ActuDetail extends React.Component {
       );
     }
   };
+  //Affichage d'un fichier sous format pdf
   afficheArticle = () => {
     if (this.state.url == "") {
       Alert.alert(
@@ -81,6 +86,7 @@ class ActuDetail extends React.Component {
       });
     }
   };
+  //Redirection lorsqu'il y a un lien externe à l'application
   lienExterne = () => {
     if (
       this.props.route.params.lien != undefined ||
@@ -89,6 +95,7 @@ class ActuDetail extends React.Component {
       Linking.openURL(this.props.route.params.lien);
     }
   };
+  //Recherche des documents d'une actualité dans storage firebase
   componentDidMount() {
     const test = firebase
       .storage()

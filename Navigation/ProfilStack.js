@@ -10,10 +10,11 @@ import InscriptionFinale from "../Components/InscriptionFinale";
 import InstanceDetail from "../Components/InstanceDetail";
 import AjoutInstance from "../Components/AjoutInstance";
 import PdfReader from "../Components/PdfReader";
-
 import React from "react";
 import firebase from "firebase";
 import firebaseConfig from "../firebase";
+
+//Création du bouton de redirection vers l'accueil
 const LogoTitle = ({ navigation }) => {
   return (
     <TouchableOpacity onPress={() => navigation.navigate("Accueil")}>
@@ -24,7 +25,7 @@ const LogoTitle = ({ navigation }) => {
     </TouchableOpacity>
   );
 };
-
+//Création du bouton d'ouverture du menu déroulant
 const LogoMenu = ({ navigation }) => {
   return (
     <TouchableOpacity onPress={() => navigation.openDrawer()}>
@@ -34,7 +35,7 @@ const LogoMenu = ({ navigation }) => {
 };
 
 const Stack = createStackNavigator();
-
+//Définition des écrans accessibles en navigation directe à partir du profil
 class ProfilStack extends React.Component {
   constructor(props) {
     super(props);
@@ -42,7 +43,7 @@ class ProfilStack extends React.Component {
       ProfilStackFin: Profil,
     };
   }
-
+  //Vérification de l'état de connexion de l'utilisateur pour l'affichage des pages
   listener = () => {
     const { currentUser } = firebase.auth();
     if (currentUser) {

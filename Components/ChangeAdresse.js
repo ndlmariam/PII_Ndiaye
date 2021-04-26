@@ -18,6 +18,7 @@ class ChangeAdresse extends React.Component {
       mdp: "",
     };
   }
+  //Vérifie les identifiants entrés et modifie l'adresse mail
   emailVerif = () => {
     var oldemail = this.props.route.params.email;
     var mdp = this.state.mdp;

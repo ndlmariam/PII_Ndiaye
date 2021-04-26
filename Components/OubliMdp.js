@@ -18,6 +18,7 @@ class OubliMDP extends React.Component {
       email: "",
     };
   }
+  //Permet de changer le mot de passe associé au compte -> envoie email de vérification
   emailVerif = () => {
     firebase
       .auth()

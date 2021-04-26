@@ -21,7 +21,7 @@ class Profil extends React.Component {
       id: "",
     };
   }
-
+  //Permet la connexion au compte avec mot de passe et adresse mail
   handleLogin = () => {
     firebase
       .auth()
@@ -31,7 +31,7 @@ class Profil extends React.Component {
         Alert.alert("Erreur ", error.message, [{ text: "Ok" }])
       );
   };
-
+  //Vérifie le changement des textinputs
   onLoginChange = (textEntre) => {
     this.setState({
       mail: textEntre,
@@ -42,6 +42,7 @@ class Profil extends React.Component {
       mdp: textEntre,
     });
   };
+  //Recherche le profil connecté s'il y en a un
   componentDidMount() {
     firebase.auth().onAuthStateChanged((user) => {
       this.props.navigation.navigate(user ? "Profil" : "Profil");

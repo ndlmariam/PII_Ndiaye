@@ -5,9 +5,11 @@ import firebaseConfig from "../firebase";
 var name, email;
 var user;
 class ProfilConnecte extends React.Component {
+  //Permet la deconnexion
   handleSignOut = () => {
     firebase.auth().signOut().then(this.props.navigation.navigate("Accueil"));
   };
+  //Recupère les informations de l'utilisateur connecté
   componentDidMount() {
     this.getUser();
   }
